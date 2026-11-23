@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Egyptian Fast Service - في خدمتك</title>
+<style>
+*{box-sizing:border-box;font-family:Arial}body{margin:0;background:#f1f5f9}header{background:#0f766e;color:#fff;padding:18px;text-align:center}header h1{margin:0;font-size:22px}
+.wrap{max-width:560px;margin:auto;padding:12px}.card{background:#fff;border-radius:14px;padding:14px;margin-bottom:12px}
+h2{margin:0 0 8px;font-size:18px}label{font-weight:bold;display:block;margin:10px 0 5px}input,select,textarea{width:100%;padding:12px;border:1px solid #ddd;border-radius:10px;font-size:15px}
+button{width:100%;padding:13px;border:0;border-radius:11px;font-weight:bold;font-size:16px;cursor:pointer;margin-top:10px}.g{background:#0f766e;color:#fff}.w{background:#25D366;color:#fff}.o{background:#f97316;color:#fff}.gray{background:#e2e8f0}
+.flex{display:flex;gap:8px}.flex button{flex:1}.hide{display:none}.worker{border:1px solid #eee;border-radius:12px;padding:10px;margin-top:10px;display:flex;gap:10px;align-items:center}
+.worker img{width:64px;height:64px;border-radius:50%;object-fit:cover;background:#ddd}.badge{background:#fef9c3;padding:3px 8px;border-radius:20px;font-size:12px}.red{color:#dc2626;font-weight:bold}.green{color:#15803d;font-weight:bold}.small{font-size:13px;color:#666}
+.tag{display:inline-block;background:#ecfdf5;border:1px solid #0f766e;padding:5px 10px;border-radius:20px;margin:3px;font-size:13px}
+</style>
+</head>
+<body>
+<header><h1>🇪🇬 Egyptian Fast Service</h1><p>في خدمتك - في أي مكان في مصر</p></header>
+<div class="wrap">
+
+<!-- HOME -->
+<div id="home" class="card">
+<h2>انت مين؟</h2>
+<div class="flex"><button class="g" onclick="show('clientReg')">عميل - اطلب فني</button><button class="o" onclick="show('workerReg')">فني - اشتغل معانا</button></div>
+<button class="gray" onclick="show('admin')">دخول الأدمن ⚙️</button>
+<p class="small">بالتسجيل انت توافق على الشروط. اقرأها في صفحة الشروط بالأسفل.</p>
+<button class="gray" onclick="show('terms')">📄 الشروط والأحكام - Terms</button>
+<div id="homeJobs"></div>
+</div>
+
+<!-- TERMS -->
+<div id="terms" class="card hide">
+<h2>الشروط والأحكام</h2>
+<p><b>للعميل:</b> تدفع 50 جنيه فتح طلب غير مستردة، عن طريق فودافون كاش / انستا باي، وترفع صورة الإيصال. ليك شات مع 2 فنيين بس. أي اتفاق خارج التطبيق، التطبيق غير مسؤول. قيم الفني بعد الشغل.</p>
+<p><b>للفني:</b> تسجل ببطاقة سارية وش وضهر + صورتك. عمولة التطبيق 10% من كل شغلانة. أقصى ديون 3، الرابعة مقفولة لحد ما تدفع. لو اترفضت، هتشوف السبب وتقدر تعدل وتبعت تاني. ممنوع الاتفاق خارج التطبيق.</p>
+<label><input type="checkbox" id="agree"> أنا قرأت ووافقت - I Agree</label>
+<button class="g" onclick="agree()">موافق - ابدأ</button><button class="gray" onclick="show('home')">رجوع</button>
+</div>
+
+<!-- CLIENT REG -->
+<div id="clientReg" class="card hide">
+<h2>تسجيل عميل</h2>
+<label>رقم الموبايل</label><input id="cPhone" placeholder="01xxxxxxxxx">
+<label>المحافظة</label><select id="cGov" onchange="loadCities('cGov','cCity')"></select>
+<label>المدينة / المركز</label><select id="cCity"></select>
+<label>العنوان التفصيلي</label><input id="cAddr" placeholder="الشارع - العمارة - الشقة - علامة مميزة">
+<label>اختر الخدمة</label><select id="cCat"></select>
+<label>وصف المشكلة</label><textarea id="cDesc" placeholder="اشرح المشكلة بالتفصيل"></textarea>
+<button class="w" onclick="clientPay()">التالي - دفع 50 جنيه</button>
+<button class="gray" onclick="show('home')">رجوع</button>
+</div>
+
+<!-- CLIENT PAY -->
+<div id="clientPay" class="card hide">
+<h2>دفع 50 جنيه فتح طلب</h2>
+<p>حوّل 50 جنيه على:</p>
+<p><b>فودافون كاش:</b> 01000000000<br><b>انستا باي:</b> EgyptianFastService@instapay</p>
+<label>ارفع صورة إيصال الدفع</label><input type="file" accept="image/*" onchange="upImg(event,'payImg')">
+<img id="payImg" style="width:100%;border-radius:10px;display:none">
+<button class="g" onclick="submitClient()">ارسل الطلب للمراجعة</button>
+<button class="gray" onclick="show('clientReg')">رجوع</button>
+<p id="clientMsg" class="small"></p>
+</div>
+
+<!-- CLIENT DASH -->
+<div id="clientDash" class="card hide">
+<h2>طلباتك</h2><div id="clientList"></div>
+<button class="gray" onclick="show('home')">رجوع</button>
+</div>
+
+<!-- WORKER REG -->
+<div id="workerReg" class="card hide">
+<h2>تسجيل فني</h2>
+<label>الاسم بالكامل</label><input id="wName">
+<label>رقم الموبايل (واتساب)</label><input id="wPhone" placeholder="01xxxxxxxxx">
+<label>المحافظة</label><select id="wGov" onchange="loadCities('wGov','wCity')"></select>
+<label>المدينة / المركز</label><select id="wCity"></select>
+<label>العنوان التفصيلي</label><input id="wAddr">
+<label>المهنة</label><select id="wCat"></select>
+<label>سنين الخبرة</label><input id="wExp" type="number" placeholder="مثال 5">
+<label>صورة البطاقة وش</label><input type="file" accept="image/*" onchange="upImg(event,'wId1')">
+<label>صورة البطاقة ضهر</label><input type="file" accept="image/*" onchange="upImg(event,'wId2')">
+<label>صورتك الشخصية - هتظهر للعميل</label><input type="file" accept="image/*" onchange="upImg(event,'wPhoto')">
+<img id="wPhoto" style="width:90px;height:90px;border-radius:50%;object-fit:cover;display:none">
+<button class="o" onclick="submitWorker()">ارسال للمراجعة</button>
+<button class="gray" onclick="show('home')">رجوع</button>
+<p id="workerMsg" class="small"></p>
+</div>
+
+<!-- WORKER DASH -->
+<div id="workerDash" class="card hide">
+<h2 id="wTitle">لوحة الفني</h2>
+<div id="wInfo"></div>
+<div id="wJobs"></div>
+<button class="gray" onclick="show('home')">رجوع</button>
+</div>
+
+<!-- WORKER PAY DEBT -->
+<div id="workerPay" class="card hide">
+<h2>دفع دين العمولة 10%</h2>
+<p>حوّل على فودافون كاش / انستا باي، وارفع صورة الإيصال.</p>
+<label>ارفع صورة الإيصال</label><input type="file" accept="image/*" onchange="upImg(event,'debtImg')">
+<img id="debtImg" style="width:100%;border-radius:10px;display:none">
+<button class="g" onclick="submitDebt()">ارسال للأدمن</button>
+<button class="gray" onclick="show('workerDash')">رجوع</button>
+</div>
+
+<!-- ADMIN -->
+<div id="admin" class="card hide">
+<h2>لوحة الأدمن</h2>
+<p class="small">كلمة السر التجريبية: 1234</p>
+<input id="adminPass" type="password" placeholder="كلمة السر">
+<button class="g" onclick="adminLogin()">دخول</button>
+<div id="adminPanel" class="hide">
+<h3>طلبات عملاء - دفع 50 جنيه</h3><div id="adminClients"></div>
+<h3>فنيين - موافقة / رفض</h3><div id="adminWorkers"></div>
+<h3>ديون فنيين - إيصالات</h3><div id="adminDebts"></div>
+</div>
+<button class="gray" onclick="show('home')">رجوع</button>
+</div>
+
+<div class="card"><h2>الخدمات المتاحة</h2><div id="cats"></div></div>
+</div>
+
+<script>
+const GOVS={
+"القاهرة":["مدينة نصر","مصر الجديدة","التجمع الخامس","المعادي","حلوان","شبرا","المقطم","مدينة بدر"],
+"الجيزة":["الدقي","المهندسين","6 أكتوبر","الشيخ زايد","فيصل","الهرم","إمبابة"],
+"القليوبية":["بنها","شبرا الخيمة","العبور","الخانكة","طوخ"],
+"الإسكندرية":["سيدي جابر","سموحة","المنتزه","العجمي","برج العرب"],
+"الدقهلية":["المنصورة","طلخا","ميت غمر","دكرنس"],
+"الشرقية":["الزقازيق","العاشر من رمضان","بلبيس","أبو حماد"],
+"الغربية":["طنطا","المحلة","كفر الزيات"],"الغربية":["طنطا","المحلة","كفر الزيات"],
+"المنوفية":["شبين الكوم","منوف","السادات"],
+"البحيرة":["دمنهور","كفر الدوار"],
+"كفر الشيخ":["كفر الشيخ","دسوق"],
+"دمياط":["دمياط","رأس البر","دمياط الجديدة"],
+"بورسعيد":["بورسعيد","بورفؤاد"],
+"الإسماعيلية":["الإسماعيلية","فايد"],
+"السويس":["السويس","عتاقة"],
+"الفيوم":["الفيوم","سنورس"],
+"بني سويف":["بني سويف","الواسطى"],
+"المنيا":["المنيا","ملوي"],
+"أسيوط":["أسيوط","ديروط"],
+"سوهاج":["سوهاج","جرجا"],
+"قنا":["قنا","نجع حمادي"],
+"الأقصر":["الأقصر","إسنا"],
+"أسوان":["أسوان","كوم أمبو"],
+"البحر الأحمر":["الغردقة","مرسى علم"],
+"مطروح":["مرسى مطروح","العلمين"],
+"شمال سيناء":["العريش","رفح"],
+"جنوب سيناء":["شرم الشيخ","دهب"],
+"الوادي الجديد":["الخارجة","الداخلة"]
+};
+const CATS=["سباك - Plumber","كهربائي - Electrician","نجار - Carpenter","نقاش - Painter","محارة - Plaster","جبس بورد - Gypsum Board","سيراميك - Ceramics","رخام - Marble","تكييف وتبريد - AC & Cooling","تلاجات وغسالات - Fridge & Washing","دش وريسيفر - Dish & Receiver","كاميرات - CCTV Cameras","حداد - Blacksmith","الوميتال - Aluminum","زجاج - Glass","مواتير مياه - Water Motors","عزل أسطح - Roof Insulation","صيانة موبايل - Mobile Repair","صيانة كمبيوتر - Computer Repair","ميكانيكي سيارات - Car Mechanic","كهربائي سيارات - Car Electrician","كاوتش - Tires","نقل عفش - Furniture Moving","عامل نظافة - Male Cleaning Worker","عاملة نظافة - Female Cleaning Worker","مدرب مساج - Male Massage Trainer","مدربة مساج - Female Massage Trainer","حجام - Male Hijama","حجامة - Female Hijama"];
+let DB=JSON.parse(localStorage.getItem('efs')||'{"clients":[],"workers":[],"debts":[]}');
+function save(){localStorage.setItem('efs',JSON.stringify(DB))}
+function show(id){document.querySelectorAll('.card').forEach(c=>c.classList.add('hide'));document.getElementById(id).classList.remove('hide');window.scrollTo(0,0)}
+function loadCities(govId,cityId){let g=document.getElementById(govId).value;let s=document.getElementById(cityId);s.innerHTML='';(GOVS[g]||[]).forEach(c=>{let o=document.createElement('option');o.text=c;s.add(o)});}
+function init(){let cg=document.getElementById('cGov'),wg=document.getElementById('wGov');Object.keys(GOVS).forEach(g=>{let o1=document.createElement('option');o1.text=g;cg.add(o1);let o2=document.createElement('option');o2.text=g;wg.add(o2)});loadCities('cGov','cCity');loadCities('wGov','wCity');let cc=document.getElementById('cCat'),wc=document.getElementById('wCat');CATS.forEach(c=>{let o1=document.createElement('option');o1.text=c;cc.add(o1);let o2=document.createElement('option');o2.text=c;wc.add(o2)});document.getElementById('cats').innerHTML=CATS.map(c=>'<span class="tag">'+c+'</span>').join('');renderHome();}
+function upImg(e,id){let r=new FileReader();r.onload=()=>{let im=document.getElementById(id);im.src=r.result;im.style.display='block';im.dataset.src=r.result};r.readAsDataURL(e.target.files[0])}
+function agree(){if(!document.getElementById('agree').checked){alert('لازم توافق على الشروط الأول');return}show('home')}
+function clientPay(){if(!document.getElementById('cPhone').value){alert('اكتب رقم موبايلك');return}show('clientPay')}
+function submitClient(){let c={phone:document.getElementById('cPhone').value,gov:document.getElementById('cGov').value,city:document.getElementById('cCity').value,addr:document.getElementById('cAddr').value,cat:document.getElementById('cCat').value,desc:document.getElementById('cDesc').value,img:document.getElementById('payImg').dataset.src||'',status:'waiting',id:Date.now()};DB.clients.push(c);save();document.getElementById('clientMsg').innerHTML='تم ارسال طلبك! استنى موافقة الأدمن';renderHome();}
+function submitWorker(){let w={name:document.getElementById('wName').value,phone:document.getElementById('wPhone').value,gov:document.getElementById('wGov').value,city:document.getElementById('wCity').value,addr:document.getElementById('wAddr').value,cat:document.getElementById('wCat').value,exp:document.getElementById('wExp').value,photo:document.getElementById('wPhoto').dataset.src||'',status:'waiting',reject:'',debts:0,rating:5,id:Date.now()};if(!w.name||!w.phone){alert('اكمل الاسم والموبايل');return}DB.workers.push(w);save();document.getElementById('workerMsg').innerHTML='تم ارسال حسابك للمراجعة.';}
+function renderHome(){let h=document.getElementById('homeJobs');let approved=DB.workers.filter(w=>w.status=='approved');h.innerHTML='<h3>فنيين معتمدين</h3>'+(approved.length?approved.map(w=>'<div class="worker"><img src="'+(w.photo||'')+'"><div><b>'+w.name+'</b><br><span class="small">'+w.cat+' - '+w.city+'</span><br><span class="badge">⭐ '+w.rating+' | ديون: '+w.debts+'/3</span></div></div>').join(''):'<p class="small">لسه مفيش فنيين معتمدين.</p>');}
+function adminLogin(){if(document.getElementById('adminPass').value!='1234'){alert('كلمة السر غلط');return}document.getElementById('adminPanel').classList.remove('hide');renderAdmin()}
+function renderAdmin(){document.getElementById('adminClients').innerHTML=DB.clients.map((c,i)=>'<div class="worker"><div><b>'+c.cat+'</b> - '+c.city+' - '+c.phone+'<br><span class="small">'+c.desc+' | '+c.status+'</span></div><button class="g" onclick="approveClient('+i+')">قبول</button></div>').join('')||'لا يوجد';document.getElementById('adminWorkers').innerHTML=DB.workers.map((w,i)=>'<div class="worker"><img src="'+(w.photo||'')+'"><div><b>'+w.name+'</b> - '+w.cat+' - '+w.city+'<br><span class="small">'+w.status+' '+(w.reject?'- '+w.reject:'')+'</span></div><button class="g" onclick="approveWorker('+i+')">قبول</button><button class="gray" onclick="rejectWorker('+i+')">رفض</button></div>').join('')||'لا يوجد';document.getElementById('adminDebts').innerHTML=DB.debts.map((d,i)=>'<div class="worker"><div><b>'+d.worker+'</b> - '+d.amount+'</div><button class="g" onclick="approveDebt('+i+')">قبول</button></div>').join('')||'لا يوجد';}
+function approveClient(i){DB.clients[i].status='approved';save();renderAdmin();alert('تم قبول العميل')}
+function rejectClient(i){DB.clients[i].status='rejected';save();renderAdmin()}
+function approveWorker(i){DB.workers[i].status='approved';DB.workers[i].reject='';save();renderAdmin();renderHome()}
+function rejectWorker(i){let r=prompt('سبب الرفض؟');DB.workers[i].status='rejected';DB.workers[i].reject=r;save();renderAdmin()}
+function approveDebt(i){let d=DB.debts[i];let w=DB.workers.find(x=>x.name==d.worker);if(w&&w.debts>0)w.debts--;d.status='approved';save();renderAdmin();renderHome()}
+function submitDebt(){let w=DB.workers[0];if(!w){alert('سجل كفني الأول');return}DB.debts.push({worker:w.name,amount:'10% من آخر شغلانة',img:document.getElementById('debtImg').dataset.src||'',status:'waiting'});save();alert('تم ارسال إيصال الدين للأدمن');}
+init();
+</script>
+
+<!-- إخلاء المسؤولية -->
+<style>.disclaimer-modal{position:fixed;inset:0;background:rgba(0,0,0,.7);display:none;align-items:center;justify-content:center;z-index:9999;padding:16px}.disclaimer-modal.active{display:flex}.disclaimer-card{background:#fff;border-radius:16px;max-width:520px;width:100%;max-height:85vh;overflow:auto;padding:18px}.disclaimer-box{background:#fff1f2;border:2px solid #dc2626;border-radius:14px;padding:14px}.disclaimer-box p{font-size:14px;line-height:1.7}</style>
+<div class="disclaimer-modal" id="disclaimerModal"><div class="disclaimer-card"><h2 style="color:#dc2626">⚠️ إخلاء مسؤولية - Disclaimer</h2><div class="disclaimer-box"><p><b>تطبيق Egyptian Fast Service - في خدمتك هو وسيط فقط لربط العميل بالفني.</b></p><p><b>1.</b> التطبيق غير مسؤول عن أي اتفاق يتم خارج التطبيق، سواء على واتساب أو تليفون أو مقابلة شخصية.</p><p><b>2.</b> التطبيق غير مسؤول عن جودة الشغل، أو الأسعار اللي اتفق عليها العميل والفني خارج التطبيق، أو أي تلف أو خسارة أو إصابة.</p><p><b>3.</b> العميل مسؤول عن التأكد من هوية الفني قبل دخوله البيت، والفني مسؤول عن شغله.</p><p><b>4.</b> دفع الـ 50 جنيه هو رسوم فتح طلب فقط، وغير مستردة.</p><p><b>5.</b> أي شكوى لازم تكون داخل التطبيق وبصورة إيصال أو محادثة داخل التطبيق.</p></div><label style="display:flex;gap:8px;align-items:center;font-weight:bold;margin-top:10px"><input type="checkbox" id="disclaimerAgree" style="width:20px;height:20px"> أنا قرأت وفهمت وموافق - I Agree</label><button onclick="closeDisclaimer()" style="background:#0f766e;color:#fff;padding:13px;border:0;border-radius:11px;width:100%;font-weight:bold;margin-top:10px;cursor:pointer">موافق - ابدأ</button></div></div>
+<script>
+window.addEventListener('load', function(){setTimeout(function(){if(!localStorage.getItem('efs_disclaimer')){document.getElementById('disclaimerModal').classList.add('active');}},500);});
+function closeDisclaimer(){if(!document.getElementById('disclaimerAgree').checked){alert('لازم تعلم على أنا موافق الأول');return}localStorage.setItem('efs_disclaimer','yes');document.getElementById('disclaimerModal').classList.remove('active');}
+function showWorkerPhoneWarning(){alert('⚠️ تحذير: أي اتفاق بره التطبيق، التطبيق مش مسؤول.');}
+</script>
+</body>
+</html>
