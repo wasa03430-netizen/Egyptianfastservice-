@@ -94,11 +94,8 @@ button{width:100%;padding:13px;border:0;border-radius:11px;font-weight:bold;font
 
 <!-- WORKER PAY DEBT -->
 <div id="workerPay" class="card hide">
-<h2>دفع دين العمولة 10%</h2>
-<p>حوّل على فودافون كاش / انستا باي، وارفع صورة الإيصال.</p>
-<label>ارفع صورة الإيصال</label><input type="file" accept="image/*" onchange="upImg(event,'debtImg')">
-<img id="debtImg" style="width:100%;border-radius:10px;display:none">
-<button class="g" onclick="submitDebt()">ارسال للأدمن</button>
+<h2>دفع <h3>حالة الفنيين</h3>
+  
 <button class="gray" onclick="show('workerDash')">رجوع</button>
 </div>
 
@@ -109,9 +106,9 @@ button{width:100%;padding:13px;border:0;border-radius:11px;font-weight:bold;font
 <input id="adminPass" type="password" placeholder="كلمة السر">
 <button class="g" onclick="adminLogin()">دخول</button>
 <div id="adminPanel" class="hide">
-<h3>طلبات عملاء - دفع 50 جنيه</h3><div id="adminClients"></div>
+
 <h3>فنيين - موافقة / رفض</h3><div id="adminWorkers"></div>
-<h3>ديون فنيين - إيصالات</h3><div id="adminDebts"></div>
+
 </div>
 <button class="gray" onclick="show('home')">رجوع</button>
 </div>
