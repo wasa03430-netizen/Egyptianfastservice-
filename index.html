@@ -175,6 +175,7 @@ init();
 window.addEventListener('load', function(){setTimeout(function(){if(!localStorage.getItem('efs_disclaimer')){document.getElementById('disclaimerModal').classList.add('active');}},500);});
 function closeDisclaimer(){if(!document.getElementById('disclaimerAgree').checked){alert('لازم تعلم على أنا موافق الأول');return}localStorage.setItem('efs_disclaimer','yes');document.getElementById('disclaimerModal').classList.remove('active');}
 function showWorkerPhoneWarning(){alert('⚠️ تحذير: أي اتفاق بره التطبيق، التطبيق مش مسؤول.');}
+function rateWorker(i){let s=prompt('قيم الفني من 1 لـ 5');s=parseInt(s);if(!s||s<1||s>5){alert('اكتب رقم من 1 لـ 5');return}let w=DB.workers[i];w.rating=((parseFloat(w.rating)||0)*(w.rateCount||0)+s)/((w.rateCount||0)+1);w.rating=w.rating.toFixed(1);w.rateCount=(w.rateCount||0)+1;save();alert('شكرا، تقييمك اتسجل');renderHome()}
 </script>
 </body>
 </html>
