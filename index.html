@@ -160,7 +160,9 @@ alert('لازم تعمل حساب عميل الأول قبل ما تطلب');
 id='clientAuth';
 }
 document.querySelectorAll('.card').forEach(c=>c.classList.add('hide'));
-document.getElementById(id).classList.remove('hide');
+let el=document.getElementById(id);
+let p=el;
+while(p){p.classList.remove('hide');p=p.parentElement;}
 window.scrollTo(0,0)
 }
 function clientSignup(){
