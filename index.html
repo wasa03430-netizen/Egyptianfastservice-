@@ -34,7 +34,14 @@ button{width:100%;padding:13px;border:0;border-radius:11px;font-weight:bold;font
 <button class="g" onclick="agree()">موافق - ابدأ</button><button class="gray" onclick="show('home')">رجوع</button>
 </div>
 
-<div id="clientReg" class="card hide">
+<div id="clientAuth" class="card hide">
+<h3>حساب العميل</h3>
+<input id="aPhone" placeholder="رقم الموبايل">
+<input id="aPass" type="password" placeholder="كلمة السر">
+<button class="btn" onclick="clientSignup()">عمل حساب جديد</button>
+<button class="btn" onclick="clientLogin()">دخول</button>
+</div>
+  <div id="clientReg" class="card hide">
 <h2>تسجيل عميل</h2>
 <label>رقم الموبايل</label><input id="cPhone" placeholder="01xxxxxxxxx">
 <label>المحافظة</label><select id="cGov" onchange="loadCities('cGov','cCity')"></select>
