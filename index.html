@@ -147,16 +147,16 @@ const GOVS={
 const CATS=["سباك - Plumber","كهربائي - Electrician","نجار - Carpenter","نقاش - Painter","محارة - Plaster","جبس بورد - Gypsum Board","سيراميك - Ceramics","رخام - Marble","تكييف وتبريد - AC & Cooling","تلاجات وغسالات - Fridge & Washing","دش وريسيفر - Dish & Receiver","كاميرات - CCTV Cameras","حداد - Blacksmith","الوميتال - Aluminum","زجاج - Glass","مواتير مياه - Water Motors","عزل أسطح - Roof Insulation","صيانة موبايل - Mobile Repair","صيانة كمبيوتر - Computer Repair","ميكانيكي سيارات - Car Mechanic","كهربائي سيارات - Car Electrician","كاوتش - Tires","نقل عفش - Furniture Moving","عامل نظافة - Male Cleaning Worker","عاملة نظافة - Female Cleaning Worker","مدرب مساج - Male Massage Trainer","مدربة مساج - Female Massage Trainer","حجام - Male Hijama","حجامة - Female Hijama"];
 let DB=JSON.parse(localStorage.getItem('efs')||'{"clients":[],"workers":[],"debts":[]}');
 function save(){localStorage.setItem('efs',JSON.stringify(DB))}
-const _oldShow = show;
 function show(id){
 if(id==='clientReg' && !localStorage.getItem('efs_client')){
 alert('لازم تعمل حساب عميل الأول قبل ما تطلب');
 return;
 }
-return _oldShow(id);
+document.querySelectorAll('.card').forEach(c=>c.classList.add('hide'));
+document.getElementById(id).classList.remove('hide');
+window.scrollTo(0,0)
 }
-  function show(id){document.querySelectorAll('.card').forEach(c=>c.classList.add('hide'));document.getElementById(id).classList.remove('hide');window.scrollTo(0,0)}
-function loadCities(govId,cityId){let g=document.getElementById(govId).value;let s=document.getElementById(cityId);s.innerHTML='';(GOVS[g]||[]).forEach(c=>{let o=document.createElement('option');o.text=c;s.add(o)});}
+  function loadCities(govId,cityId){let g=document.getElementById(govId).value;let s=document.getElementById(cityId);s.innerHTML='';(GOVS[g]||[]).forEach(c=>{let o=document.createElement('option');o.text=c;s.add(o)});}
 function init(){let cg=document.getElementById('cGov'),wg=document.getElementById('wGov');Object.keys(GOVS).forEach(g=>{let o1=document.createElement('option');o1.text=g;cg.add(o1);let o2=document.createElement('option');o2.text=g;wg.add(o2)});loadCities('cGov','cCity');loadCities('wGov','wCity');let cc=document.getElementById('cCat'),wc=document.getElementById('wCat');CATS.forEach(c=>{let o1=document.createElement('option');o1.text=c;cc.add(o1);let o2=document.createElement('option');o2.text=c;wc.add(o2)});document.getElementById('cats').innerHTML=CATS.map(c=>'<span class="tag">'+c+'</span>').join('');renderHome();}
 function upImg(e,id){let r=new FileReader();r.onload=()=>{let im=document.getElementById(id);if(!im)return;im.src=r.result;im.style.display='block';im.dataset.src=r.result};r.readAsDataURL(e.target.files[0])}
 function agree(){if(!document.getElementById('agree').checked){alert('لازم توافق على الشروط الأول');return}show('home')}
