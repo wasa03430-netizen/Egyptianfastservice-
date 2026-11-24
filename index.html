@@ -231,5 +231,13 @@ const supabase = window.supabase.createClient('https://oaxxegswjmlxekqbylba.supa
   alert('تم الاتفاق بنجاح ✅');
 }
 </script>
+<div id="msgBox" class="card hide" style="position:fixed;top:35%;left:10%;right:10%;z-index:999;background:#123;text-align:center;padding:20px;border-radius:15px">
+<b style="color:#fff">🇪🇬 Egyptian Fast Service</b>
+<p id="msgText" style="color:#fff"></p>
+<button class="btn" onclick="document.getElementById('msgBox').classList.add('hide')">حسناً</button>
+</div>
+<script>
+function showMsg(t){document.getElementById('msgText').innerText=t;document.getElementById('msgBox').classList.remove('hide');}
+</script>
 </body>
 </html>
