@@ -157,11 +157,34 @@ function save(){localStorage.setItem('efs',JSON.stringify(DB))}
 function show(id){
 if(id==='clientReg' && !localStorage.getItem('efs_client')){
 alert('لازم تعمل حساب عميل الأول قبل ما تطلب');
-return;
+id='clientAuth';
 }
 document.querySelectorAll('.card').forEach(c=>c.classList.add('hide'));
 document.getElementById(id).classList.remove('hide');
 window.scrollTo(0,0)
+}
+function clientSignup(){
+let p=document.getElementById('aPhone').value;
+let s=document.getElementById('aPass').value;
+if(!p||!s){alert('اكتب الموبايل وكلمة السر');return;}
+let users=JSON.parse(localStorage.getItem('efs_clients')||'{}');
+users[p]=s;
+localStorage.setItem('efs_clients',JSON.stringify(users));
+localStorage.setItem('efs_client',p);
+alert('اتعمل حسابك، ادخل اطلب دلوقتي');
+show('clientReg');
+}
+function clientLogin(){
+let p=document.getElementById('aPhone').value;
+let s=document.getElementById('aPass').value;
+let users=JSON.parse(localStorage.getItem('efs_clients')||'{}');
+if(users[p]===s){
+localStorage.setItem('efs_client',p);
+alert('اهلا بيك');
+show('clientReg');
+}else{
+alert('الموبايل او كلمة السر غلط');
+}
 }
   function loadCities(govId,cityId){let g=document.getElementById(govId).value;let s=document.getElementById(cityId);s.innerHTML='';(GOVS[g]||[]).forEach(c=>{let o=document.createElement('option');o.text=c;s.add(o)});}
 function init(){let cg=document.getElementById('cGov'),wg=document.getElementById('wGov');Object.keys(GOVS).forEach(g=>{let o1=document.createElement('option');o1.text=g;cg.add(o1);let o2=document.createElement('option');o2.text=g;wg.add(o2)});loadCities('cGov','cCity');loadCities('wGov','wCity');let cc=document.getElementById('cCat'),wc=document.getElementById('wCat');CATS.forEach(c=>{let o1=document.createElement('option');o1.text=c;cc.add(o1);let o2=document.createElement('option');o2.text=c;wc.add(o2)});document.getElementById('cats').innerHTML=CATS.map(c=>'<span class="tag">'+c+'</span>').join('');renderHome();}
