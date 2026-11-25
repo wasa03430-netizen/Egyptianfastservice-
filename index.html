@@ -38,7 +38,18 @@ button{width:100%;padding:13px;border:0;border-radius:11px;font-weight:bold;font
 <h3>حساب العميل</h3>
 <input id="aPhone" placeholder="رقم الموبايل">
 <input id="aPass" type="password" placeholder="كلمة السر">
-<button class="btn" onclick="clientSignup()">عمل حساب جديد</button>
+<div style="border:2px solid #0d6efd;padding:10px;border-radius:10px;background:#fff;margin:8px 0">
+<b>📋 شروط العميل - اقرأها جيداً:</b><br>
+1- الموقع حالياً تجريبي ومجاني تماماً، ولا يتم تحصيل أي رسوم الآن.<br>
+2- لاحقاً قد يتم تحصيل رسوم خدمة وسيتم إعلانك قبلها.<br>
+3- التطبيق وسيط فقط، وليس طرفاً في الاتفاق.<br>
+4- أنت مسؤول عن أغراضك ومتعلقاتك وأموالك داخل منزلك، والتطبيق غير مسؤول عن أي فقدان أو تلف.<br>
+5- أنت مسؤول عن التأكد من هوية الفني قبل دخوله بيتك.<br>
+6- التطبيق غير مسؤول عن أي تعاملات أو دفعات خارج التطبيق.<br>
+7- التطبيق غير مسؤول عن شراء قطع الغيار أو أسعارها أو جودتها أو ضمانها.<br>
+<label><input type="checkbox" id="agreeClient"> ✅ أوافق على شروط العميل - وموافقتي شرط أساسي للتسجيل</label>
+</div>
+<button class="btn" onclick="clientSignup()">
 <button class="btn" onclick="clientLogin()">دخول</button>
 </div>
   <div id="clientReg" class="card hide">
@@ -80,7 +91,19 @@ button{width:100%;padding:13px;border:0;border-radius:11px;font-weight:bold;font
 <label>صورة البطاقة ضهر</label><input type="file" accept="image/*" onchange="upImg(event,'wId2')">
 <label>صورتك الشخصية - هتظهر للعميل</label><input type="file" accept="image/*" onchange="upImg(event,'wPhoto')">
 <img id="wPhoto" style="width:90px;height:90px;border-radius:50%;object-fit:cover;display:none">
-<button class="o" onclick="submitWorker()">ارسال للمراجعة</button>
+<div style="border:2px solid #198754;padding:10px;border-radius:10px;background:#fff;margin:8px 0">
+<b>📋 شروط الفني / العامل:</b><br>
+1- الموقع حالياً تجريبي ومجاني بدون أي عمولة.<br>
+2- لاحقاً سيتم تحصيل نسبة / رسوم للتطبيق، وسيتم إخطارك قبلها، واستمرارك يعني موافقتك.<br>
+3- التطبيق وسيط فقط، وليس طرفاً في الاتفاق.<br>
+4- أنت مسؤول عن شغلك وعن أي أخطاء أو تلفيات تتسبب فيها.<br>
+5- ملزم برفع صورة بطاقة سارية، والتطبيق يحتفظ بها لمعرفة هويتك فقط.<br>
+6- التطبيق غير مسؤول عن أي تعاملات أو دفعات خارج التطبيق.<br>
+7- التطبيق غير مسؤول عن شراء قطع الغيار أو ضمانها.<br>
+8- يحق للإدارة حظرك فوراً في حالة النصب أو الإساءة.<br>
+<label><input type="checkbox" id="agreeWorker"> ✅ أوافق على شروط الفني - وموافقتي شرط أساسي للتسجيل</label>
+</div>
+  <button class="o" onclick="submitWorker()">ارسال للمراجعة</button>
 <button class="gray" onclick="show('home')">رجوع</button>
 <p id="workerMsg" class="small"></p>
 </div>
@@ -169,7 +192,7 @@ function clientSignup(){
 let p=document.getElementById('aPhone').value;
 let s=document.getElementById('aPass').value;
 if(!p||!s){showMsg('اكتب الموبايل وكلمة السر');return;}
-let users=JSON.parse(localStorage.getItem('efs_clients')||'{}');
+if(!document.getElementById('agreeClient').checked){showMsg('لازم توافق على شروط العميل الأول');return;}  let users=JSON.parse(localStorage.getItem('efs_clients')||'{}');
 users[p]=s;
 localStorage.setItem('efs_clients',JSON.stringify(users));
 localStorage.setItem('efs_client',p);
