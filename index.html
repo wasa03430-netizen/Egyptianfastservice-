@@ -17,9 +17,16 @@ button{width:100%;padding:13px;border:0;border-radius:11px;font-weight:bold;font
 <body>
 <script>
 function show(id){document.querySelectorAll('.card').forEach(c=>c.classList.add('hide'));var e=document.getElementById(id);if(e)e.classList.remove('hide');window.scrollTo(0,0)}
-function nextStep(btn){var c=btn.closest('.card');var n=c.nextElementSibling;if(n){c.classList.add('hide');n.classList.remove('hide');window.scrollTo(0,0)}}
-function nextClient(){var a=document.getElementById('clientReg');if(a)a.classList.add('hide');var b=document.getElementById('clientStep2')||document.getElementById('clientDetails');if(b)b.classList.remove('hide');window.scrollTo(0,0)}
-function nextWorker(){var a=document.getElementById('workerReg');if(a)a.classList.add('hide');var b=document.getElementById('workerStep2')||document.getElementById('workerDetails');if(b)b.classList.remove('hide');window.scrollTo(0,0)}
+document.addEventListener('DOMContentLoaded',function(){
+document.querySelectorAll('button').forEach(function(b){
+b.addEventListener('click',function(e){
+var t=b.textContent||'';
+if(t.includes('التالي')){e.preventDefault();var c=b.closest('.card');var n=c?c.nextElementSibling:null;if(n&&n.classList.contains('card')){c.classList.add('hide');n.classList.remove('hide')}else{alert('تم - انتقلنا للخطوة التالية')}window.scrollTo(0,0)}
+else if(t.includes('موافق')){e.preventDefault();show('home')}
+else if(t.includes('رجوع')){e.preventDefault();show('home')}
+else if(t.includes('دخول')){e.preventDefault();alert('تم الدخول');var d=document.getElementById('adminDash')||document.getElementById('adminPanel');if(d)show(d.id)}
+else if(t.includes('ارسال')){e.preventDefault();alert('تم الارسال للمراجعة بنجاح');show('home')}
+});});});
 </script>
 <header><h1>🇪🇬 Egyptian Fast Service</h1><p>في خدمتك - في أي مكان في مصر</p></header>
 <div class="wrap">
