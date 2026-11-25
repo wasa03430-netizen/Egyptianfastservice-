@@ -235,12 +235,48 @@ if(error){ showMsg('في مشكلة: ' + error.message); return;}
 function showMsg(t){document.getElementById('msgText').innerText=t;document.getElementById('msgBox').classList.remove('hide');}
 </script>
 <!-- كود الأسعار BIDS -->
-<div id="bidForm" style="display:none;background:#fff;padding:10px...
+<div id="bidForm" style="display:none;background:#fff;padding:10px;margin:10px;border-radius:10px">
   <h3>قدم سعرك كصنايعي</h3>
   <input id="bidPrice" type="number" placeholder="اكتب سعرك بالجنيه" style="width:100%;padding:10px;margin:5px 0">
   <input id="bidName" type="text" placeholder="اسمك" style="width:100%;padding:10px;margin:5px 0">
-  <button onclick="submitBid(currentOrderId, document.getElementById('bidPrice').value, document.getElementById('bidName').value)">ارسال السعر</button>
+  <button onclick="sendBid()">ارسال السعر</button>
+  <button onclick="document.getElementById('bidForm').style.display='none'">الغاء</button>
 </div>
+<script>
+let currentOrderId = null;
+function openBidForm(id){
+  currentOrderId = id;
+  document.getElementById('bidForm').style.display='block';
+  window.scrollTo(0, document.getElementById('bidForm').offsetTop);
+}
+function sendBid(){
+  let price = document.getElementById('bidPrice').value;
+  let name = document.getElementById('bidName').value;
+  if(!price || !name){ alert('اكتب السعر والاسم'); return; }
+  let bids = JSON.parse(localStorage.getItem('efs_bids')||'[]');
+  bids.push({orderId: currentOrderId, price: price, name: name, time: new Date().toLocaleString('ar-EG')});
+  localStorage.setItem('efs_bids', JSON.stringify(bids));
+  alert('تم ارسال سعرك: ' + price + ' جنيه');
+  document.getElementById('bidForm').style.display='none';
+  document.getElementById('bidPrice').value='';
+}
+// يضيف زرار لكل طلب في لوحة الفني تلقائيا
+setInterval(function(){
+  let box = document.getElementById('wJobs');
+  if(!box) return;
+  let cards = box.children;
+  for(let i=0;i<cards.length;i++){
+    if(!cards[i].querySelector('.bidBtn')){
+      let b = document.createElement('button');
+      b.className = 'bidBtn';
+      b.innerText = 'قدم سعرك';
+      b.style.cssText = 'width:100%;padding:10px;margin-top:8px;background:#28a745;color:#fff;border:none;border-radius:8px';
+      b.onclick = (function(idx){ return function(){ openBidForm(idx); } })(i);
+      cards[i].appendChild(b);
+    }
+  }
+}, 1000);
+</script>
   <div id="bidsBox"></div>
 <script>
 async function loadBids(orderId){
