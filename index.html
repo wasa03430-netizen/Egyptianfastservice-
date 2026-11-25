@@ -235,7 +235,13 @@ if(error){ showMsg('في مشكلة: ' + error.message); return;}
 function showMsg(t){document.getElementById('msgText').innerText=t;document.getElementById('msgBox').classList.remove('hide');}
 </script>
 <!-- كود الأسعار BIDS -->
-<div id="bidsBox"></div>
+<div style="background:#fff;padding:10px;margin:10px;border-radius:10px">
+  <h3>قدم سعرك كصنايعي</h3>
+  <input id="bidPrice" type="number" placeholder="اكتب سعرك بالجنيه" style="width:100%;padding:10px;margin:5px 0">
+  <input id="bidName" type="text" placeholder="اسمك" style="width:100%;padding:10px;margin:5px 0">
+  <button onclick="submitBid(currentOrderId, document.getElementById('bidPrice').value, document.getElementById('bidName').value)">ارسال السعر</button>
+</div>
+  <div id="bidsBox"></div>
 <script>
 async function loadBids(orderId){
   const {data,error} = await supabase.from('bids').select('*').eq('order_id',orderId).order('price',{ascending:true});
