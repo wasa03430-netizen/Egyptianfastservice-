@@ -234,5 +234,28 @@ if(error){ showMsg('في مشكلة: ' + error.message); return;}
 <script>
 function showMsg(t){document.getElementById('msgText').innerText=t;document.getElementById('msgBox').classList.remove('hide');}
 </script>
+<!-- كود الأسعار BIDS -->
+<div id="bidsBox"></div>
+<script>
+async function loadBids(orderId){
+  const {data,error} = await supabase.from('bids').select('*').eq('order_id',orderId).order('price',{ascending:true});
+  if(error){ return; }
+  let h = '<h3>أسعار الصنايعية</h3>';
+  if(!data || data.length==0){ h += '<p>لسه مفيش أسعار</p>'; }
+  data.forEach(b=>{
+    h += '<div style="background:#fff;padding:10px;margin:5px;border-radius:10px">💰 '+b.price+' ج - '+b.worker_name+' <button onclick="acceptBid(\''+b.id+'\','+b.price+')">قبول</button></div>';
+  });
+  document.getElementById('bidsBox').innerHTML = h;
+}
+async function submitBid(orderId,price,workerName){
+  const {error} = await supabase.from('bids').insert([{order_id:orderId,price:price,worker_name:workerName}]);
+  if(error){ showMsg('مشكلة: '+error.message); return; }
+  showMsg('تم ارسال سعرك ✅');
+  loadBids(orderId);
+}
+async function acceptBid(bidId,price){
+  showMsg('تم قبول السعر '+price+' ✅');
+}
+</script>
 </body>
 </html>
