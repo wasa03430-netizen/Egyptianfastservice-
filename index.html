@@ -1,361 +1,127 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Egyptian Fast Service - في خدمتك</title>
-<style>.hide{display:none !important}
-*{box-sizing:border-box;font-family:Arial}body{margin:0;background:#f1f5f9}header{background:#0f766e;color:#fff;padding:18px;text-align:center}header h1{margin:0;font-size:22px}
-.wrap{max-width:560px;margin:auto;padding:12px}.card{background:#fff;border-radius:14px;padding:14px;margin-bottom:12px}
-h2{margin:0 0 8px;font-size:18px}label{font-weight:bold;display:block;margin:10px 0 5px}input,select,textarea{width:100%;padding:12px;border:1px solid #ddd;border-radius:10px;font-size:15px}
-button{width:100%;padding:13px;border:0;border-radius:11px;font-weight:bold;font-size:16px;cursor:pointer;margin-top:10px}.g{background:#0f766e;color:#fff}.w{background:#25D366;color:#fff}.o{background:#f97316;color:#fff}.gray{background:#e2e8f0}
-.flex{display:flex;gap:8px}.flex button{flex:1}.hide{display:none}.disclaimer-modal{display:none !important}
-.worker img{width:64px;height:64px;border-radius:50%;object-fit:cover;background:#ddd}.badge{background:#fef9c3;padding:3px 8px;border-radius:20px;font-size:12px}.red{color:#dc2626;font-weight:bold}.green{color:#15803d;font-weight:bold}.small{font-size:13px;color:#666}
-.tag{display:inline-block;background:#ecfdf5;border:1px solid #0f766e;padding:5px 10px;border-radius:20px;margin:3px;font-size:13px}
-.link{background:none;color:#0f766e;text-decoration:underline;padding:6px}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Egyptian Fast Service</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:system-ui;background:#f3f4f6;color:#111}
+header{background:#0f766e;color:#fff;padding:16px;text-align:center;font-weight:800;font-size:20px;position:sticky;top:0}
+.container{max-width:520px;margin:auto;padding:16px}
+.card{background:#fff;border-radius:16px;padding:20px;margin-bottom:14px;box-shadow:0 2px 10px #0001}
+.hide{display:none!important}
+h2{margin:0 0 10px} p{color:#555;line-height:1.7}
+button{width:100%;padding:14px;border:0;border-radius:12px;background:#0f766e;color:#fff;font-size:17px;font-weight:700;margin-top:10px;cursor:pointer}
+button.sec{background:#e5e7eb;color:#111}
+button.danger{background:#dc2626}
+input,select,textarea{width:100%;padding:13px;border:1px solid #ddd;border-radius:12px;margin-top:8px;font-size:16px;font-family:inherit}
+label{font-weight:700;display:block;margin-top:12px}
+.row{display:flex;gap:10px}.row>*{flex:1}
+.item{border:1px solid #eee;border-radius:12px;padding:12px;margin-top:10px}
+.small{font-size:13px;color:#777}
+.badge{background:#fef3c7;padding:4px 8px;border-radius:20px;font-size:12px}
 </style>
 </head>
 <body>
-<script>
-window.supabase = window.supabase || { createClient: function(){ return { from: function(){ return { select: function(){ return Promise.resolve({data:[]}) }, insert: function(){ return Promise.resolve({data:[],[STRIPPED] } } } } } };
-function show(id){document.querySelectorAll('.card').forEach(c=>c.classList.add('hide'));var e=document.getElementById(id);if(e)e.classList.remove('hide');window.scrollTo(0,0)}
-document.addEventListener('click',function(e){
-var b=e.target.closest('button');if(!b)return;var t=b.textContent||'';
-if(t.includes('التالي')){e.preventDefault();e.stopPropagation();var c=b.closest('.card');var n=c?c.nextElementSibling:null;if(n&&n.classList.contains('card')){c.classList.add('hide');n.classList.remove('hide')}window.scrollTo(0,0)}
-else if(t.includes('موافق')){e.preventDefault();e.stopPropagation();show('home')}
-else if(t.includes('رجوع')){e.preventDefault();e.stopPropagation();show('home')}
-else if(t.includes('دخول')){e.preventDefault();e.stopPropagation();var d=document.getElementById('adminDash')||document.getElementById('adminPanel');if(d)show(d.id)}
-else if(t.includes('ارسال')){e.preventDefault();e.stopPropagation();show('home')}
-},true);
-</script>
+<header>⚡ Egyptian Fast Service</header>
+<div class="container">
 
-<div id="home" class="card">
-<h2>انت مين؟</h2>
-<div class="flex"><button class="g" onclick="show('clientReg')">عميل - اطلب فني</button><button class="o" onclick="show('workerReg')">فني - اشتغل معانا</button></div>
-<button class="gray" onclick="show('admin')">دخول الأدمن ⚙️</button>
-<p class="small">بالتسجيل انت توافق على الشروط. اقرأها في صفحة الشروط بالأسفل.</p>
-<button class="gray" onclick="show('terms')">📄 الشروط والأحكام - Terms</button>
-<div id="homeJobs"></div>
+<div class="card" id="home">
+<h2>أهلاً بيك 👋</h2>
+<p>اطلب أي خدمة، أو سجل كعامل واشتغل معانا.</p>
+<button onclick="show('terms')">اطلب خدمة - عميل</button>
+<button class="sec" onclick="show('worker1')">سجل كعامل</button>
+<button class="sec" onclick="show('adminLogin')">دخول الأدمن</button>
 </div>
 
-<div id="terms" class="card hide">
+<div class="card hide" id="terms">
 <h2>الشروط والأحكام</h2>
-<p class="small">التطبيق وسيط فقط لربط العميل بالفني. العميل مسؤول عن التأكد من هوية الفني قبل دخوله البيت، والفني مسؤول عن شغله.</p>
-<label><input type="checkbox" id="agree"> أنا قرأت ووافقت - I Agree</label>
-<button class="g" onclick="agree()">موافق - ابدأ</button><button class="gray" onclick="show('home')">رجوع</button>
+<p>بالضغط على موافق، انت توافق على ان الخدمة بتتم بالاتفاق بين العميل والعامل، والتطبيق وسيط فقط.</p>
+<button onclick="show('client1')">موافق - ابدأ</button>
+<button class="sec" onclick="show('home')">رجوع</button>
 </div>
 
-<div id="clientAuth" class="card hide">
-<h3>حساب العميل</h3>
-<input id="cName" placeholder="اسم العميل">
-<input id="aPhone" placeholder="رقم الموبايل">
-  <input id="aPass" type="password" placeholder="كلمة السر">
-<div style="border:2px solid #0d6efd;padding:10px;border-radius:10px;background:#fff;margin:8px 0">
-<b>📋 شروط العميل - اقرأها جيداً:</b><br>
-1- الموقع حالياً تجريبي ومجاني تماماً، ولا يتم تحصيل أي رسوم الآن.<br>
-2- لاحقاً قد يتم تحصيل رسوم خدمة وسيتم إعلانك قبلها.<br>
-3- التطبيق وسيط فقط، وليس طرفاً في الاتفاق.<br>
-4- أنت مسؤول عن أغراضك ومتعلقاتك وأموالك داخل منزلك، والتطبيق غير مسؤول عن أي فقدان أو تلف.<br>
-5- أنت مسؤول عن التأكد من هوية الفني قبل دخوله بيتك.<br>
-6- التطبيق غير مسؤول عن أي تعاملات أو دفعات خارج التطبيق.<br>
-7- التطبيق غير مسؤول عن شراء قطع الغيار أو أسعارها أو جودتها أو ضمانها.<br>
-<label><input type="checkbox" id="agreeClient"> ✅ أوافق على شروط العميل - وموافقتي شرط أساسي للتسجيل</label>
+<div class="card hide" id="client1">
+<h2>اطلب خدمة - 1/3</h2>
+<label>نوع الخدمة</label>
+<select id="cService"><option>سباكة</option><option>كهرباء</option><option>نجارة</option><option>نقاشة</option><option>تكييف</option><option>نظافة</option></select>
+<label>المدينة</label><input id="cCity" placeholder="مثال: فاقوس">
+<button onclick="show('client2')">التالي - مجاني</button>
+<button class="sec" onclick="show('home')">رجوع</button>
 </div>
-<button class="btn" onclick="clientSignup()">
-<button class="btn" onclick="clientLogin()">دخول</button>
+
+<div class="card hide" id="client2">
+<h2>اطلب خدمة - 2/3</h2>
+<label>وصف المشكلة</label><textarea id="cDesc" rows="3" placeholder="اشرح المشكلة"></textarea>
+<button onclick="show('client3')">التالي - مجاني</button>
+<button class="sec" onclick="show('client1')">رجوع</button>
 </div>
-  <div id="otpBox" class="box" style="display:none">
-<h3>🔐 كود التفعيل</h3>
-<p>بعتنا الكود على واتساب، اكتبه هنا</p>
-<input id="otpInput" placeholder="اكتب الكود 4 أرقام">
-<button onclick="verifyOtp()">تأكيد الكود</button>
-</div>
-  <div id="clientReg" class="card hide">
-<h2>تسجيل عميل</h2>
+
+<div class="card hide" id="client3">
+<h2>اطلب خدمة - 3/3</h2>
+<label>اسمك</label><input id="cName" placeholder="اسمك">
 <label>رقم الموبايل</label><input id="cPhone" placeholder="01xxxxxxxxx">
-<label>المحافظة</label><select id="cGov" onchange="loadCities('cGov','cCity')"></select>
-<label>المدينة / المركز</label><select id="cCity"></select>
-<label>العنوان التفصيلي</label><input id="cAddr" placeholder="الشارع - العمارة - الشقة - علامة مميزة">
-<label>اختر الخدمة</label><select id="cCat"></select>
-<label>وصف المشكلة</label><textarea id="cDesc" placeholder="اشرح المشكلة بالتفصيل"></textarea>
-<button class="w" onclick="clientPay()">التالي - مجاني</button>
-<button class="gray" onclick="show('home')">رجوع</button>
+<button onclick="submitClient()">ارسال الطلب</button>
+<button class="sec" onclick="show('client2')">رجوع</button>
 </div>
 
-<div id="clientPay" class="card hide">
-<h2>التسجيل مجاني</h2>
-<p>العرض مجاني دلوقتي لفترة محدودة<br>كمل وادخل بياناتك</p>
-<p>اضغط مراجعة لإرسال طلبك مجاناً</p>
-<button class="g" onclick="submitClient()">ارسل الطلب للمراجعة</button>
-<button class="gray" onclick="show('clientReg')">رجوع</button>
-<p id="clientMsg" class="small"></p>
+<div class="card hide" id="worker1">
+<h2>سجل كعامل</h2>
+<label>اسمك</label><input id="wName" placeholder="اسمك بالكامل">
+<label>رقم الموبايل</label><input id="wPhone" placeholder="01xxxxxxxxx">
+<label>المهنة</label><select id="wJob"><option>سباك</option><option>كهربائي</option><option>نجار</option><option>نقاش</option><option>فني تكييف</option><option>عامل نظافة</option></select>
+<label>المدينة</label><input id="wCity" placeholder="مثال: فاقوس">
+<button onclick="submitWorker()">ارسال للمراجعة</button>
+<button class="sec" onclick="show('home')">رجوع</button>
 </div>
 
-<div id="clientDash" class="card hide">
-<h2>طلباتك</h2><div id="clientList"></div>
-<button class="gray" onclick="show('home')">رجوع</button>
+<div class="card hide" id="adminLogin">
+<h2>دخول الأدمن</h2>
+<label>كلمة السر</label><input id="adminPass" type="password" placeholder="جرب 1234">
+<button onclick="loginAdmin()">دخول</button>
+<button class="sec" onclick="show('home')">رجوع</button>
 </div>
 
-<div id="workerReg" class="card hide">
-<h2>تسجيل فني</h2>
-<label>الاسم بالكامل</label><input id="wName">
-<label>رقم الموبايل (واتساب)</label><input id="wPhone" placeholder="01xxxxxxxxx">
-<label>المحافظة</label><select id="wGov" onchange="loadCities('wGov','wCity')"></select>
-<label>المدينة / المركز</label><select id="wCity"></select>
-<label>العنوان التفصيلي</label><input id="wAddr">
-<label>المهنة</label><select id="wCat"></select>
-<label>سنين الخبرة</label><input id="wExp" type="number" placeholder="مثال 5">
-<label>صورة البطاقة وش</label><input type="file" accept="image/*" onchange="upImg(event,'wId1')">
-<label>صورة البطاقة ضهر</label><input type="file" accept="image/*" onchange="upImg(event,'wId2')">
-<label>صورتك الشخصية - هتظهر للعميل</label><input type="file" accept="image/*" onchange="upImg(event,'wPhoto')">
-<img id="wPhoto" style="width:90px;height:90px;border-radius:50%;object-fit:cover;display:none">
-<div style="border:2px solid #198754;padding:10px;border-radius:10px;background:#fff;margin:8px 0">
-<b>📋 شروط الفني / العامل:</b><br>
-1- الموقع حالياً تجريبي ومجاني بدون أي عمولة.<br>
-2- لاحقاً سيتم تحصيل نسبة / رسوم للتطبيق، وسيتم إخطارك قبلها، واستمرارك يعني موافقتك.<br>
-3- التطبيق وسيط فقط، وليس طرفاً في الاتفاق.<br>
-4- أنت مسؤول عن شغلك وعن أي أخطاء أو تلفيات تتسبب فيها.<br>
-5- ملزم برفع صورة بطاقة سارية، والتطبيق يحتفظ بها لمعرفة هويتك فقط.<br>
-6- التطبيق غير مسؤول عن أي تعاملات أو دفعات خارج التطبيق.<br>
-7- التطبيق غير مسؤول عن شراء قطع الغيار أو ضمانها.<br>
-8- يحق للإدارة حظرك فوراً في حالة النصب أو الإساءة.<br>
-<label><input type="checkbox" id="agreeWorker"> ✅ أوافق على شروط الفني - وموافقتي شرط أساسي للتسجيل</label>
-</div>
-  <button class="o" onclick="submitWorker()">ارسال للمراجعة</button>
-<button class="gray" onclick="show('home')">رجوع</button>
-<p id="workerMsg" class="small"></p>
-</div>
-
-<div id="workerDash" class="card hide">
-<h2 id="wTitle">لوحة الفني</h2>
-<div id="wInfo"></div>
-<div id="wJobs"></div>
-<button class="gray" onclick="show('home')">رجوع</button>
-</div>
-
-<div id="workerPay" class="card hide">
-<h2>دفع الدين</h2>
-<h3>حالة الفنيين</h3>
-<p class="small">ارفع إيصال الدفع هنا وسيتم مراجعته من الأدمن.</p>
-<button class="gray" onclick="show('workerDash')">رجوع</button>
-</div>
-
-<!-- ADMIN -->
-<div id="admin" class="card hide">
+<div class="card hide" id="adminDash">
 <h2>لوحة الأدمن</h2>
-<p class="small">دخول المؤسس فقط</p>
-<input id="adminEmail" type="email" placeholder="ايميل المؤسس">
-<input id="adminPass" type="password" placeholder="كلمة السر">
-<button class="g" onclick="adminLogin()">دخول</button>
-<button class="link" onclick="forgotPass()">نسيت الباسورد؟</button>
-<div id="adminPanel" class="hide">
-<button class="gray" onclick="changePass()">🔑 تغيير الباسورد</button>
-<h3>طلبات العملاء</h3><div id="adminClients"></div>
-<h3>فنيين - موافقة / رفض</h3><div id="adminWorkers"></div>
-<h3>الديون</h3><div id="adminDebts"></div>
-</div>
-<button class="gray" onclick="show('home')">رجوع</button>
+<p class="small">هنا كل طلبات العملاء والعمال.</p>
+<h3>طلبات العملاء</h3><div id="clientList"></div>
+<h3>طلبات العمال</h3><div id="workerList"></div>
+<button class="sec" onclick="show('home')">خروج</button>
 </div>
 
-<div class="card"><h2>الخدمات المتاحة</h2><div id="cats"></div></div>
+<div class="card hide" id="success">
+<h2>تم بنجاح ✅</h2><p id="successText">تم ارسال طلبك.</p>
+<button onclick="show('home')">رجوع للرئيسية</button>
 </div>
 
-<script>
-const FOUNDER_EMAIL='wasa03430@gmail.com';
-let ADMIN_PASS=localStorage.getItem('efs_admin_pass')||'123456';
-const GOVS={
-"القاهرة":["مدينة نصر","مصر الجديدة","التجمع الخامس","المعادي","حلوان","شبرا","المقطم","مدينة بدر"],
-"الجيزة":["الدقي","المهندسين","6 أكتوبر","الشيخ زايد","فيصل","الهرم","إمبابة"],
-"القليوبية":["بنها","شبرا الخيمة","العبور","الخانكة","طوخ"],
-"الإسكندرية":["سيدي جابر","سموحة","المنتزه","العجمي","برج العرب"],
-"الدقهلية":["المنصورة","طلخا","ميت غمر","دكرنس"],
-"الشرقية":["الزقازيق","العاشر من رمضان","بلبيس","أبو حماد"],
-"الغربية":["طنطا","المحلة","كفر الزيات"],
-"المنوفية":["شبين الكوم","منوف","السادات"],
-"البحيرة":["دمنهور","كفر الدوار"],
-"كفر الشيخ":["كفر الشيخ","دسوق"],
-"دمياط":["دمياط","رأس البر","دمياط الجديدة"],
-"بورسعيد":["بورسعيد","بورفؤاد"],
-"الإسماعيلية":["الإسماعيلية","فايد"],
-"السويس":["السويس","عتاقة"],
-"الفيوم":["الفيوم","سنورس"],
-"بني سويف":["بني سويف","الواسطى"],
-"المنيا":["المنيا","ملوي"],
-"أسيوط":["أسيوط","ديروط"],
-"سوهاج":["سوهاج","جرجا"],
-"قنا":["قنا","نجع حمادي"],
-"الأقصر":["الأقصر","إسنا"],
-"أسوان":["أسوان","كوم أمبو"],
-"البحر الأحمر":["الغردقة","مرسى علم"],
-"مطروح":["مرسى مطروح","العلمين"],
-"شمال سيناء":["العريش","رفح"],
-"جنوب سيناء":["شرم الشيخ","دهب"],
-"الوادي الجديد":["الخارجة","الداخلة"]
-};
-const CATS=["سباك - Plumber","كهربائي - Electrician","نجار - Carpenter","نقاش - Painter","محارة - Plaster","جبس بورد - Gypsum Board","سيراميك - Ceramics","رخام - Marble","تكييف وتبريد - AC & Cooling","تلاجات وغسالات - Fridge & Washing","دش وريسيفر - Dish & Receiver","كاميرات - CCTV Cameras","حداد - Blacksmith","الوميتال - Aluminum","زجاج - Glass","مواتير مياه - Water Motors","عزل أسطح - Roof Insulation","صيانة موبايل - Mobile Repair","صيانة كمبيوتر - Computer Repair","ميكانيكي سيارات - Car Mechanic","كهربائي سيارات - Car Electrician","كاوتش - Tires","نقل عفش - Furniture Moving","عامل نظافة - Male Cleaning Worker","عاملة نظافة - Female Cleaning Worker","مدرب مساج - Male Massage Trainer","مدربة مساج - Female Massage Trainer","حجام - Male Hijama","حجامة - Female Hijama"];
-let DB=JSON.parse(localStorage.getItem('efs')||'{"clients":[],"workers":[],"debts":[]}');
-function save(){localStorage.setItem('efs',JSON.stringify(DB))}
-function show(id){
-if(id==='clientReg' && !localStorage.getItem('efs_client')){
-showMsg('لازم تعمل حساب عميل الأول قبل ما تطلب');
-id='clientAuth';
-}
-document.querySelectorAll('.card').forEach(c=>c.classList.add('hide'));
-let el=document.getElementById(id);
-let p=el;
-while(p){p.classList.remove('hide');p=p.parentElement;}
-window.scrollTo(0,0)
-}
-let tempCode='';
-let tempUser=null;
-function clientSignup(){
-let nm=document.getElementById('cName').value;
-let p=document.getElementById('aPhone').value;
-let s=document.getElementById('aPass').value;
-if(!p||!s||!nm){showMsg('اكتب الاسم والموبايل وكلمة السر');return;}
-if(!/^01[0125][0-9]{8}$/.test(p)){showMsg('اكتب رقم موبايل مصري صحيح');return;}
-if(!document.getElementById('agreeClient').checked){showMsg('لازم توافق على شروط العميل الأول');return;}
-tempCode=Math.floor(1000+Math.random()*9000).toString();
-tempUser={name:nm,phone:p,pass:s};
-window.open('https://wa.me/20'+p.substring(1)+'?text='+encodeURIComponent('كود تفعيل حسابك في خدمة سريعة: '+tempCode),'_blank');
-hideAll();show('otpBox');
-}
-function verifyOtp(){
-if(document.getElementById('otpInput').value==tempCode){
-let users=JSON.parse(localStorage.getItem('efs_clients')||'{}');
-users[tempUser.phone]=tempUser.pass;
-localStorage.setItem('efs_clients',JSON.stringify(users));
-let names=JSON.parse(localStorage.getItem('efs_client_names')||'{}');
-names[tempUser.phone]=tempUser.name;
-localStorage.setItem('efs_client_names',JSON.stringify(names));
-localStorage.setItem('efs_client',tempUser.phone);
-showMsg('تم تفعيل حسابك بنجاح');hideAll();show('clientReg');
-}else{showMsg('الكود غلط، جرب تاني');}
-}
-let p=document.getElementById('aPhone').value;
-let s=document.getElementById('aPass').value;
-let users=JSON.parse(localStorage.getItem('efs_clients')||'{}');
-if(users[p]===s){
-localStorage.setItem('efs_client',p);
-showMsg('اهلا بيك');
-show('clientReg');
-}else{
-showMsg('الموبايل او كلمة السر غلط');
-}
-}
-  function loadCities(govId,cityId){let g=document.getElementById(govId).value;let s=document.getElementById(cityId);s.innerHTML='';(GOVS[g]||[]).forEach(c=>{let o=document.createElement('option');o.text=c;s.add(o)});}
-function init(){let cg=document.getElementById('cGov'),wg=document.getElementById('wGov');Object.keys(GOVS).forEach(g=>{let o1=document.createElement('option');o1.text=g;cg.add(o1);let o2=document.createElement('option');o2.text=g;wg.add(o2)});loadCities('cGov','cCity');loadCities('wGov','wCity');let cc=document.getElementById('cCat'),wc=document.getElementById('wCat');CATS.forEach(c=>{let o1=document.createElement('option');o1.text=c;cc.add(o1);let o2=document.createElement('option');o2.text=c;wc.add(o2)});document.getElementById('cats').innerHTML=CATS.map(c=>'<span class="tag">'+c+'</span>').join('');renderHome();}
-function upImg(e,id){let r=new FileReader();r.onload=()=>{let im=document.getElementById(id);if(!im)return;im.src=r.result;im.style.display='block';im.dataset.src=r.result};r.readAsDataURL(e.target.files[0])}
-function agree(){if(!document.getElementById('agree').checked){alert('لازم توافق على الشروط الأول');return}show('home')}
-function submitWorker(){if(!document.getElementById('agreeWorker').checked){showMsg('لازم توافق على شروط الفني الأول');return;}let w={name:document.getElementById('wName').value,phone:document.getElementById('wPhone').value,pass:document.getElementById('wPass').value,craft:document.getElementById('wCraft').value,area:document.getElementById('wArea').value,photo:document.getElementById('wPhoto').src||'no photo',image:document.getElementById('wCard').src||'',idPhoto:document.getElementById('wCard').src||'',status:'pending',price:'',rating:'5',jobCount:'0',experience:'0'};let ws=JSON.parse(localStorage.getItem('workers')||'[]');ws.push(w);localStorage.setItem('workers',JSON.stringify(ws));showMsg('تم ارسال طلبك للمراجعة');hideAll();show('loginBox');}
-function adminLogin(){let em=(document.getElementById('adminEmail').value||'').trim().toLowerCase();let v=cleanPass(document.getElementById('adminPass').value);if(em!==FOUNDER_EMAIL){alert('الايميل غلط');return}if(v!==ADMIN_PASS){alert('كلمة السر غلط');return}document.getElementById('adminPanel').classList.remove('hide');renderAdmin()}
-function changePass(){showMsg('لتغيير الباسورد، تواصل مع الإدارة لتحديثه');}  function changePass(){let oldP=prompt('اكتب الباسورد القديم:');if(cleanPass(oldP)!==ADMIN_PASS){alert('الباسورد القديم غلط');return}let np=prompt('اكتب الباسورد الجديد:');if(!np||np.trim().length<4){alert('الباسورد لازم يكون 4 حروف على الأقل');return}ADMIN_PASS=cleanPass(np);localStorage.setItem('efs_admin_pass',ADMIN_PASS);alert('تم تغيير الباسورد بنجاح');}
-function renderAdmin(){let cEl=document.getElementById('adminClients');if(cEl){cEl.innerHTML=DB.clients.map((c,i)=>'<div class="worker"><div><b>'+c.cat+'</b> - '+c.city+' - '+c.phone+'<br><span class="small">'+c.desc+' | '+c.status+'</span></div><button class="g" onclick="approveClient('+i+')">قبول</button></div>').join('')||'لا يوجد';}let wEl=document.getElementById('adminWorkers');if(wEl){wEl.innerHTML=DB.workers.map((w,i)=>'<div class="worker"><img src="'+(w.photo||'')+'"><div><b>'+w.name+'</b> - '+w.cat+' - '+w.city+'<br><span class="small">'+w.status+' '+(w.reject?'- '+w.reject:'')+'</span></div><button class="g" onclick="approveWorker('+i+')">قبول</button><button class="gray" onclick="rejectWorker('+i+')">رفض</button></div>').join('')||'لا يوجد';}let dEl=document.getElementById('adminDebts');if(dEl){dEl.innerHTML=DB.debts.map((d,i)=>'<div class="worker"><div><b>'+d.worker+'</b> - '+d.amount+'</div><button class="g" onclick="approveDebt('+i+')">قبول</button></div>').join('')||'لا يوجد';}}
-function approveClient(i){DB.clients[i].status='approved';save();renderAdmin();alert('تم قبول العميل')}
-function rejectClient(i){DB.clients[i].status='rejected';save();renderAdmin()}
-function approveWorker(i){DB.workers[i].status='approved';DB.workers[i].reject='';save();renderAdmin();renderHome()}
-function rejectWorker(i){let r='تم الرفض من الإدارة';DB.workers[i].status='rejected';DB.workers[i].reject=r;save();renderAdmin()}  function approveDebt(i){let d=DB.debts[i];let w=DB.workers.find(x=>x.name==d.worker);if(w&&w.debts>0)w.debts--;d.status='approved';save();renderAdmin();renderHome()}
-function submitDebt(){let w=DB.workers[0];if(!w){showMsg('سجل كفني الأول');return}let debtEl=document.getElementById('debtImg');DB.debts.push({worker:w.name,amount:'10% من آخر شغلانة',img:debtEl?debtEl.dataset.src||'':'',status:'waiting'});save();showMsg('تم ارسال إيصال الدين للأدمن');}  init();
-</script>
-
-<style>.disclaimer-modal{position:fixed;inset:0;background:rgba(0,0,0,.7);display:none;align-items:center;justify-content:center;z-index:9999;padding:16px}.disclaimer-modal.active{display:flex}.disclaimer-card{background:#fff;border-radius:16px;max-width:520px;width:100%;max-height:85vh;overflow:auto;padding:18px}.disclaimer-box{background:#fff1f2;border:2px solid #dc2626;border-radius:14px;padding:14px}.disclaimer-box p{font-size:14px;line-height:1.7}</style>
-<div class="disclaimer-modal" id="disclaimerModal"><div class="disclaimer-card"><h2 style="color:#dc2626">⚠️ إخلاء مسؤولية - Disclaimer</h2><div class="disclaimer-box"><p><b>تطبيق Egyptian Fast Service - في خدمتك هو وسيط فقط لربط العميل بالفني.</b></p><p><b>1.</b> التطبيق غير مسؤول عن أي اتفاق يتم خارج التطبيق، سواء على واتساب أو تليفون أو مقابلة شخصية.</p><p><b>2.</b> التطبيق غير مسؤول عن جودة الشغل، أو الأسعار اللي اتفق عليها العميل والفني خارج التطبيق، أو أي تلف أو خسارة أو إصابة.</p><p><b>3.</b> العميل مسؤول عن التأكد من هوية الفني قبل دخوله البيت، والفني مسؤول عن شغله.</p><p><b>4.</b> دفع الـ 50 جنيه هو رسوم فتح طلب فقط، وغير مستردة.</p><p><b>5.</b> أي شكوى لازم تكون داخل التطبيق وبصورة إيصال أو محادثة داخل التطبيق.</p></div><label style="display:flex;gap:8px;align-items:center;font-weight:bold;margin-top:10px"><input type="checkbox" id="disclaimerAgree" style="width:20px;height:20px"> أنا قرأت وفهمت وموافق - I Agree</label><button onclick="closeDisclaimer()" style="background:#0f766e;color:#fff;padding:13px;border:0;border-radius:11px;width:100%;font-weight:bold;margin-top:10px;cursor:pointer">موافق - ابدأ</button></div></div>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script>
-  window.addEventListener('load', function(){setTimeout(function(){if(!localStorage.getItem('efs_disclaimer')){document.getElementById('disclaimerModal').classList.add('active');}},500);});
-function closeDisclaimer(){if(!document.getElementById('disclaimerAgree').checked){alert('لازم تعلم على أنا موافق الأول');return}localStorage.setItem('efs_disclaimer','yes');document.getElementById('disclaimerModal').classList.remove('active');}
-function showWorkerPhoneWarning(){showMsg('⚠️ يفضل تحميل التطبيق أو التواصل واتساب للحصول على رقم العامل');}
-    function rateWorker(i){DB.workers[i].rating=5;save();renderAdmin();showMsg('شكرا لتقييمك 5 نجوم');}
-    const supabase = window.supabase.createClient('https://monaivjvelbfjakxkhun.supabase.co','sb_publishable_W78FF7E2lT5uJBUm97vlXA_RRSmcMra');
-    function rateWorker(i){DB.workers[i].rating=5;save();renderAdmin();showMsg('شكرا لتقييمك 5 نجوم');}
-      const { data, error } = await supabase.from('orders').insert([{
-    request_id: requestId,
-    offer_id: offerId,
-    customer_id: customerId,
-    agreement_price: price,
-    agreement_done: true,
-    status: 'active'
-  }]).select().single();
-if(error){ showMsg('في مشكلة: ' + error.message); return;}
-  showMsg('تم الاتفاق بنجاح ✅');
-}
-</script>
-<div id="msgBox" class="card hide" style="position:fixed;top:35%;left:10%;right:10%;z-index:999;background:#123;text-align:center;padding:20px;border-radius:15px">
-<b style="color:#fff">🇪🇬 Egyptian Fast Service</b>
-<p id="msgText" style="color:#fff"></p>
-<button class="btn" onclick="document.getElementById('msgBox').classList.add('hide')">حسناً</button>
 </div>
 <script>
-function showMsg(t){document.getElementById('msgText').innerText=t;document.getElementById('msgBox').classList.remove('hide');}
-</script>
-<!-- كود الأسعار BIDS -->
-<div id="bidForm" style="display:none;background:#fff;padding:10px;margin:10px;border-radius:10px">
-  <h3>قدم سعرك كصنايعي</h3>
-  <input id="bidPrice" type="number" placeholder="اكتب سعرك بالجنيه" style="width:100%;padding:10px;margin:5px 0">
-  <input id="bidName" type="text" placeholder="اسمك" style="width:100%;padding:10px;margin:5px 0">
-  <button onclick="sendBid()">ارسال السعر</button>
-  <button onclick="document.getElementById('bidForm').style.display='none'">الغاء</button>
-</div>
-<script>
-let currentOrderId = null;
-function openBidForm(id){
-  currentOrderId = id;
-  document.getElementById('bidForm').style.display='block';
-  window.scrollTo(0, document.getElementById('bidForm').offsetTop);
+function show(id){document.querySelectorAll('.card').forEach(c=>c.classList.add('hide'));document.getElementById(id).classList.remove('hide');window.scrollTo(0,0)}
+function get(k){try{return JSON.parse(localStorage.getItem(k)||'[]')}catch(e){return[]}}
+function save(k,v){localStorage.setItem(k,JSON.stringify(v))}
+function submitClient(){
+var o={service:document.getElementById('cService').value,city:document.getElementById('cCity').value,desc:document.getElementById('cDesc').value,name:document.getElementById('cName').value,phone:document.getElementById('cPhone').value,time:new Date().toLocaleString('ar-EG')};
+if(!o.city||!o.name||!o.phone){alert('كمل البيانات الأول');return}
+var a=get('clients');a.push(o);save('clients',a);
+document.getElementById('successText').textContent='تم ارسال طلبك بنجاح، هنوصلك بأقرب عامل.';show('success');
 }
-function sendBid(){
-  let price = document.getElementById('bidPrice').value;
-  let name = document.getElementById('bidName').value;
-  if(!price || !name){ alert('اكتب السعر والاسم'); return; }
-  let bids = JSON.parse(localStorage.getItem('efs_bids')||'[]');
-  bids.push({orderId: currentOrderId, price: price, name: name, time: new Date().toLocaleString('ar-EG')});
-  localStorage.setItem('efs_bids', JSON.stringify(bids));
-  alert('تم ارسال سعرك: ' + price + ' جنيه');
-  document.getElementById('bidForm').style.display='none';
-  document.getElementById('bidPrice').value='';
+function submitWorker(){
+var o={name:document.getElementById('wName').value,phone:document.getElementById('wPhone').value,job:document.getElementById('wJob').value,city:document.getElementById('wCity').value,time:new Date().toLocaleString('ar-EG')};
+if(!o.name||!o.phone||!o.city){alert('كمل البيانات الأول');return}
+var a=get('workers');a.push(o);save('workers',a);
+document.getElementById('successText').textContent='تم ارسال طلبك للمراجعة، هنكلمك قريب.';show('success');
 }
-// يضيف زرار لكل طلب في لوحة الفني تلقائيا
-setInterval(function(){
-  let box = document.getElementById('wJobs');
-  if(!box) return;
-  let cards = box.children;
-  for(let i=0;i<cards.length;i++){
-    if(!cards[i].querySelector('.bidBtn')){
-      let b = document.createElement('button');
-      b.className = 'bidBtn';
-      b.innerText = 'قدم سعرك';
-      b.style.cssText = 'width:100%;padding:10px;margin-top:8px;background:#28a745;color:#fff;border:none;border-radius:8px';
-      b.onclick = (function(idx){ return function(){ openBidForm(idx); } })(i);
-      cards[i].appendChild(b);
-    }
-  }
-}, 1000);
-</script>
-  <div id="bidsBox"></div>
-<script>
-async function loadBids(orderId){
-  const {data,error} = await supabase.from('bids').select('*').eq('order_id',orderId).order('price',{ascending:true});
-  if(error){ return; }
-  let h = '<h3>أسعار الصنايعية</h3>';
-  if(!data || data.length==0){ h += '<p>لسه مفيش أسعار</p>'; }
-  data.forEach(b=>{
-    h += '<div style="background:#fff;padding:10px;margin:5px;border-radius:10px">💰 '+b.price+' ج - '+b.worker_name+' <button onclick="acceptBid(\''+b.id+'\','+b.price+')">قبول</button></div>';
-  });
-  document.getElementById('bidsBox').innerHTML = h;
+function loginAdmin(){
+if(document.getElementById('adminPass').value==='1234'){renderAdmin();show('adminDash')}else{alert('كلمة السر غلط - جرب 1234')}
 }
-async function submitBid(orderId,price,workerName){
-  const {error} = await supabase.from('bids').insert([{order_id:orderId,price:price,worker_name:workerName}]);
-  if(error){ showMsg('مشكلة: '+error.message); return; }
-  showMsg('تم ارسال سعرك ✅');
-  loadBids(orderId);
+function renderAdmin(){
+var c=get('clients'),w=get('workers');
+document.getElementById('clientList').innerHTML=c.length?c.map((x,i)=>'<div class="item"><b>'+x.service+'</b> <span class="badge">'+x.city+'</span><div>'+x.name+' - '+x.phone+'</div><div class="small">'+x.desc+' | '+x.time+'</div><button class="danger" onclick="delClient('+i+')">حذف</button></div>').join(''):'<p class="small">مفيش طلبات لسه</p>';
+document.getElementById('workerList').innerHTML=w.length?w.map((x,i)=>'<div class="item"><b>'+x.name+'</b> <span class="badge">'+x.job+'</span><div>'+x.phone+' - '+x.city+'</div><div class="small">'+x.time+'</div><button class="danger" onclick="delWorker('+i+')">حذف</button></div>').join(''):'<p class="small">مفيش عمال لسه</p>';
 }
-async function acceptBid(bidId,price){
-  showMsg('تم قبول السعر '+price+' ✅');
-}
-function show(id){document.querySelectorAll('.card').forEach(c=>c.classList.add('hide'));var e=document.getElementById(id);if(e)e.classList.remove('hide');window.scrollTo(0,0)}
-function hideAll(){document.querySelectorAll('.box,.card').forEach(c=>c.classList.add('hide'))};
-setTimeout(hideAll,3000);
- }
-if(document.readyState=='loading'){document.addEventListener('DOMContentLoaded',init)}else{init()}
+function delClient(i){var a=get('clients');a.splice(i,1);save('clients',a);renderAdmin()}
+function delWorker(i){var a=get('workers');a.splice(i,1);save('workers',a);renderAdmin()}
 </script>
 </body>
 </html>
