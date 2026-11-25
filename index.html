@@ -53,6 +53,12 @@ button{width:100%;padding:13px;border:0;border-radius:11px;font-weight:bold;font
 <button class="btn" onclick="clientSignup()">
 <button class="btn" onclick="clientLogin()">دخول</button>
 </div>
+  <div id="otpBox" class="box" style="display:none">
+<h3>🔐 كود التفعيل</h3>
+<p>بعتنا الكود على واتساب، اكتبه هنا</p>
+<input id="otpInput" placeholder="اكتب الكود 4 أرقام">
+<button onclick="verifyOtp()">تأكيد الكود</button>
+</div>
   <div id="clientReg" class="card hide">
 <h2>تسجيل عميل</h2>
 <label>رقم الموبايل</label><input id="cPhone" placeholder="01xxxxxxxxx">
@@ -189,23 +195,32 @@ let p=el;
 while(p){p.classList.remove('hide');p=p.parentElement;}
 window.scrollTo(0,0)
 }
+let tempCode='';
+let tempUser=null;
 function clientSignup(){
 let nm=document.getElementById('cName').value;
 let p=document.getElementById('aPhone').value;
 let s=document.getElementById('aPass').value;
 if(!p||!s||!nm){showMsg('اكتب الاسم والموبايل وكلمة السر');return;}
+if(!/^01[0125][0-9]{8}$/.test(p)){showMsg('اكتب رقم موبايل مصري صحيح');return;}
 if(!document.getElementById('agreeClient').checked){showMsg('لازم توافق على شروط العميل الأول');return;}
+tempCode=Math.floor(1000+Math.random()*9000).toString();
+tempUser={name:nm,phone:p,pass:s};
+window.open('https://wa.me/20'+p.substring(1)+'?text='+encodeURIComponent('كود تفعيل حسابك في خدمة سريعة: '+tempCode),'_blank');
+hideAll();show('otpBox');
+}
+function verifyOtp(){
+if(document.getElementById('otpInput').value==tempCode){
 let users=JSON.parse(localStorage.getItem('efs_clients')||'{}');
-users[p]=s;
+users[tempUser.phone]=tempUser.pass;
 localStorage.setItem('efs_clients',JSON.stringify(users));
 let names=JSON.parse(localStorage.getItem('efs_client_names')||'{}');
-names[p]=nm;
+names[tempUser.phone]=tempUser.name;
 localStorage.setItem('efs_client_names',JSON.stringify(names));
-localStorage.setItem('efs_client',p);
-showMsg('تم انشاء حسابك، ادخل اطلب دلوقتي');
-show('clientReg');
+localStorage.setItem('efs_client',tempUser.phone);
+showMsg('تم تفعيل حسابك بنجاح');hideAll();show('clientReg');
+}else{showMsg('الكود غلط، جرب تاني');}
 }
-function clientLogin(){
 let p=document.getElementById('aPhone').value;
 let s=document.getElementById('aPass').value;
 let users=JSON.parse(localStorage.getItem('efs_clients')||'{}');
