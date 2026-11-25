@@ -341,6 +341,10 @@ async function submitBid(orderId,price,workerName){
 async function acceptBid(bidId,price){
   showMsg('تم قبول السعر '+price+' ✅');
 }
+  function hideAll(){
+document.querySelectorAll('.box,.card').forEach(c=>c.classList.add('hide'));
+}
+if(document.readyState=='loading'){document.addEventListener('DOMContentLoaded',init)}else{init()}
 </script>
 </body>
 </html>
