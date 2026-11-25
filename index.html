@@ -190,14 +190,19 @@ while(p){p.classList.remove('hide');p=p.parentElement;}
 window.scrollTo(0,0)
 }
 function clientSignup(){
+let nm=document.getElementById('cName').value;
 let p=document.getElementById('aPhone').value;
 let s=document.getElementById('aPass').value;
-if(!p||!s){showMsg('اكتب الموبايل وكلمة السر');return;}
-if(!document.getElementById('agreeClient').checked){showMsg('لازم توافق على شروط العميل الأول');return;}  let users=JSON.parse(localStorage.getItem('efs_clients')||'{}');
+if(!p||!s||!nm){showMsg('اكتب الاسم والموبايل وكلمة السر');return;}
+if(!document.getElementById('agreeClient').checked){showMsg('لازم توافق على شروط العميل الأول');return;}
+let users=JSON.parse(localStorage.getItem('efs_clients')||'{}');
 users[p]=s;
 localStorage.setItem('efs_clients',JSON.stringify(users));
+let names=JSON.parse(localStorage.getItem('efs_client_names')||'{}');
+names[p]=nm;
+localStorage.setItem('efs_client_names',JSON.stringify(names));
 localStorage.setItem('efs_client',p);
-showMsg('اتعمل حسابك، ادخل اطلب دلوقتي');
+showMsg('تم انشاء حسابك، ادخل اطلب دلوقتي');
 show('clientReg');
 }
 function clientLogin(){
