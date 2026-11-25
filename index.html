@@ -212,8 +212,8 @@ function submitDebt(){let w=DB.workers[0];if(!w){showMsg('سجل كفني الأ
 function closeDisclaimer(){if(!document.getElementById('disclaimerAgree').checked){alert('لازم تعلم على أنا موافق الأول');return}localStorage.setItem('efs_disclaimer','yes');document.getElementById('disclaimerModal').classList.remove('active');}
 function showWorkerPhoneWarning(){showMsg('⚠️ يفضل تحميل التطبيق أو التواصل واتساب للحصول على رقم العامل');}
     function rateWorker(i){DB.workers[i].rating=5;save();renderAdmin();showMsg('شكرا لتقييمك 5 نجوم');}
-    const supabase = window.supabase.createClient('https://oaxxegswjmlxekqbylba.supabase.co', 'sb_publishable_W78FF7E2lT5uJBUm97vlXA_RRSmcMra');async function confirmAgreement(requestId, offerId, customerId, price){
-function rateWorker(i){DB.workers[i].rating=5;save();renderAdmin();showMsg('شكرا لتقييمك 5 نجوم');}
+    const supabase = window.supabase.createClient('https://monaivjvelbfjakxkhun.supabase.co','sb_publishable_W78FF7E2lT5uJBUm97vlXA_RRSmcMra');
+    function rateWorker(i){DB.workers[i].rating=5;save();renderAdmin();showMsg('شكرا لتقييمك 5 نجوم');}
       const { data, error } = await supabase.from('orders').insert([{
     request_id: requestId,
     offer_id: offerId,
