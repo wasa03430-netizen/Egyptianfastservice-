@@ -235,7 +235,7 @@ if(error){ showMsg('في مشكلة: ' + error.message); return;}
 function showMsg(t){document.getElementById('msgText').innerText=t;document.getElementById('msgBox').classList.remove('hide');}
 </script>
 <!-- كود الأسعار BIDS -->
-<div style="background:#fff;padding:10px;margin:10px;border-radius:10px">
+<div id="bidForm" style="display:none;background:#fff;padding:10px...
   <h3>قدم سعرك كصنايعي</h3>
   <input id="bidPrice" type="number" placeholder="اكتب سعرك بالجنيه" style="width:100%;padding:10px;margin:5px 0">
   <input id="bidName" type="text" placeholder="اسمك" style="width:100%;padding:10px;margin:5px 0">
