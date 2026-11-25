@@ -16,19 +16,17 @@ button{width:100%;padding:13px;border:0;border-radius:11px;font-weight:bold;font
 </head>
 <body>
 <script>
-window.supabase = window.supabase || { createClient: function(){ return { from: function(){ return { select: function(){ return Promise.resolve({data:[]}) }, insert: function(){ return Promise.resolve({data:[],error:null}) } } } } } };
+window.supabase = window.supabase || { createClient: function(){ return { from: function(){ return { select: function(){ return Promise.resolve({data:[]}) }, insert: function(){ return Promise.resolve({data:[],[STRIPPED] } } } } } };
 function show(id){document.querySelectorAll('.card').forEach(c=>c.classList.add('hide'));var e=document.getElementById(id);if(e)e.classList.remove('hide');window.scrollTo(0,0)}
 document.addEventListener('click',function(e){
 var b=e.target.closest('button');if(!b)return;var t=b.textContent||'';
-if(t.includes('التالي')){e.preventDefault();e.stopPropagation();var c=b.closest('.card');var n=c?c.nextElementSibling:null;if(n&&n.classList.contains('card')){c.classList.add('hide');n.classList.remove('hide')}else{alert('تم - الخطوة التالية')}window.scrollTo(0,0)}
+if(t.includes('التالي')){e.preventDefault();e.stopPropagation();var c=b.closest('.card');var n=c?c.nextElementSibling:null;if(n&&n.classList.contains('card')){c.classList.add('hide');n.classList.remove('hide')}window.scrollTo(0,0)}
 else if(t.includes('موافق')){e.preventDefault();e.stopPropagation();show('home')}
 else if(t.includes('رجوع')){e.preventDefault();e.stopPropagation();show('home')}
-else if(t.includes('دخول')){e.preventDefault();e.stopPropagation();alert('تم الدخول');var d=document.getElementById('adminDash')||document.getElementById('adminPanel');if(d)show(d.id)}
-else if(t.includes('ارسال')){e.preventDefault();e.stopPropagation();alert('تم الارسال للمراجعة بنجاح');show('home')}
+else if(t.includes('دخول')){e.preventDefault();e.stopPropagation();var d=document.getElementById('adminDash')||document.getElementById('adminPanel');if(d)show(d.id)}
+else if(t.includes('ارسال')){e.preventDefault();e.stopPropagation();show('home')}
 },true);
 </script>
-<header><h1>🇪🇬 Egyptian Fast Service</h1><p>في خدمتك - في أي مكان في مصر</p></header>
-<div class="wrap">
 
 <div id="home" class="card">
 <h2>انت مين؟</h2>
