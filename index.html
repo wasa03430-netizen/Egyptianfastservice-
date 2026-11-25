@@ -215,8 +215,8 @@ function closeDisclaimer(){if(!document.getElementById('disclaimerAgree').checke
 function showWorkerPhoneWarning(){showMsg('⚠️ يفضل تحميل التطبيق أو التواصل واتساب للحصول على رقم العامل');}
     function rateWorker(i){DB.workers[i].rating=5;save();renderAdmin();showMsg('شكرا لتقييمك 5 نجوم');}
     const supabase = window.supabase.createClient('https://oaxxegswjmlxekqbylba.supabase.co', 'sb_publishable_W78FF7E2lT5uJBUm97vlXA_RRSmcMra');async function confirmAgreement(requestId, offerId, customerId, price){
-if(!window.supabase){ showMsg('Supabase مش متوصلة'); return;}
-  const { data, error } = await supabase.from('orders').insert([{
+function rateWorker(i){DB.workers[i].rating=5;save();renderAdmin();showMsg('شكرا لتقييمك 5 نجوم');}
+      const { data, error } = await supabase.from('orders').insert([{
     request_id: requestId,
     offer_id: offerId,
     customer_id: customerId,
