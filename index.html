@@ -111,22 +111,23 @@ label{font-weight:700;display:block;margin-top:12px}
 
 </div>
 <script>
+function showMsg(m){let d=document.createElement('div');d.textContent=m;d.style.cssText='position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#111827;color:#fff;padding:12px 18px;border-radius:12px;z-index:9999';document.body.appendChild(d);setTimeout(()=>d.remove(),2500);}
 function show(id){document.querySelectorAll('.card').forEach(c=>c.classList.add('hide'));document.getElementById(id).classList.remove('hide');window.scrollTo(0,0)}
 function get(k){try{return JSON.parse(localStorage.getItem(k)||'[]')}catch(e){return[]}}
 function save(k,v){localStorage.setItem(k,JSON.stringify(v))}
 function submitClient(){
 var o={service:document.getElementById('cService').value,city:document.getElementById('cCity').value,desc:document.getElementById('cDesc').value,name:document.getElementById('cName').value,phone:document.getElementById('cPhone').value,time:new Date().toLocaleString('ar-EG')};
-if(!o.city||!o.name||!o.phone){alert('كمل البيانات الأول');return}
+if(!o.city||!o.name||!o.phone){showMsg('كمل البيانات الأول');return}
 var a=get('clients');a.push(o);save('clients',a);
 document.getElementById('successText').textContent='تم ارسال طلبك بنجاح، هنوصلك بأقرب عامل.';show('success');
 }
 function submitWorker(){
 var o={name:document.getElementById('wName').value,phone:document.getElementById('wPhone').value,job:document.getElementById('wJob').value,city:document.getElementById('wCity').value,time:new Date().toLocaleString('ar-EG')};
-if(!o.name||!o.phone||!o.city){alert('كمل البيانات الأول');return}
+if(!o.name||!o.phone||!o.city){showMsg('كمل البيانات الأول');return}
 var a=get('workers');a.push(o);save('workers',a);
 document.getElementById('successText').textContent='تم ارسال طلبك للمراجعة، هنكلمك قريب.';show('success');
 }
-function loginAdmin(){if(document.getElementById('adminPass').value==='1234'){renderAdmin();show('adminDash')}else{alert('كلمة السر غلط - جرب 1234')}}
+else{showMsg('كلمة السر غلط')}
 function renderAdmin(){
 var c=get('clients'),w=get('workers');
 document.getElementById('clientList').innerHTML=c.length?c.map((x,i)=>'<div class="item"><b>'+x.service+'</b> <span class="badge">'+x.city+'</span><div>'+x.name+' - '+x.phone+'</div><div class="small">'+x.desc+' | '+x.time+'</div><button class="danger" onclick="delClient('+i+')">حذف</button></div>').join(''):'<p class="small">مفيش طلبات لسه</p>';
