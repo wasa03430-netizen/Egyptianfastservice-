@@ -2,140 +2,190 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Egyptian Fast Service</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Egyptian Fast Service 🇪🇬</title>
 <style>
-*{box-sizing:border-box}body{margin:0;font-family:system-ui;background:#f3f4f6}
-header{background:#0f766e;color:#fff;padding:16px;text-align:center;font-weight:800;font-size:20px}
-.container{max-width:520px;margin:auto;padding:16px}
-.card{background:#fff;border-radius:16px;padding:20px;margin-bottom:14px;box-shadow:0 2px 10px #0001}
-.hide{display:none!important}
-button{width:100%;padding:14px;border:0;border-radius:12px;background:#0f766e;color:#fff;font-size:17px;font-weight:700;margin-top:10px;cursor:pointer}
-button.sec{background:#e5e7eb;color:#111}
-button.danger{background:#dc2626}
-input,select,textarea{width:100%;padding:13px;border:1px solid #ddd;border-radius:12px;margin-top:8px;font-size:16px}
-label{font-weight:700;display:block;margin-top:12px}
-#splash{padding:0;overflow:hidden;cursor:pointer}
-#splash .splash-text{padding:20px;text-align:center}
-#splash h1{margin:0;font-size:26px}
-#splash p{color:#555;line-height:1.7}
-#splash .tap{margin-top:10px;background:#0f766e;color:#fff;padding:14px;border-radius:12px;font-weight:800;font-size:18px}
-.item{border:1px solid #eee;border-radius:12px;padding:12px;margin-top:10px}
-.small{font-size:13px;color:#777}
-.badge{background:#fef3c7;padding:4px 8px;border-radius:20px;font-size:12px}
+*{box-sizing:border-box;font-family:'Segoe UI',Tahoma,sans-serif}
+body{margin:0;background:#0f172a;color:#fff}
+a{color:#facc15}
+header{background:linear-gradient(90deg,#0f172a,#1e3a8a);padding:15px;text-align:center;position:sticky;top:0;z-index:10}
+header h1{margin:0;font-size:24px} header h1 span{color:#facc15}
+header p{margin:5px 0 0;color:#cbd5e1;font-size:13px}
+.container{max-width:480px;margin:auto;padding:12px;padding-bottom:90px}
+.card{background:#1e293b;border-radius:16px;padding:15px;margin-bottom:12px;border:1px solid #334155}
+.card h3{margin:0 0 8px}
+input,select,textarea,button{width:100%;padding:12px;border-radius:10px;border:none;margin:6px 0;font-size:15px}
+input,select,textarea{background:#0f172a;color:#fff;border:1px solid #334155}
+button{background:#facc15;color:#000;font-weight:900;cursor:pointer}
+button.secondary{background:#334155;color:#fff}
+button.danger{background:#ef4444;color:#fff}
+button.green{background:#22c55e;color:#fff}
+.small{font-size:12px;color:#94a3b8}
+.badge{display:inline-block;background:#facc15;color:#000;padding:3px 10px;border-radius:20px;font-size:12px;font-weight:900}
+.profile{display:flex;gap:12px;align-items:center}
+.profile img{width:70px;height:70px;border-radius:50%;object-fit:cover;border:3px solid #facc15}
+.stars{color:#facc15;font-size:18px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.service{background:#0f172a;border:1px solid #334155;border-radius:14px;padding:12px;text-align:center;cursor:pointer}
+.service b{font-size:14px}
+.service span{font-size:22px;display:block}
+.hidden{display:none}
+.chatbox{background:#0f172a;height:220px;overflow:auto;padding:10px;border-radius:10px}
+.msg{background:#334155;padding:8px 10px;border-radius:10px;margin:5px 0;max-width:85%}
+.msg.me{background:#facc15;color:#000;margin-left:auto}
+.nav{position:fixed;bottom:0;left:0;right:0;background:#1e293b;display:flex;padding:8px;border-top:1px solid #334155}
+.nav button{background:transparent;color:#fff;font-size:12px}
+.nav button.active{color:#facc15}
+.terms{background:#fef9c3;color:#111;padding:12px;border-radius:12px;font-size:13px;line-height:1.7}
 </style>
 </head>
 <body>
-<header>⚡ Egyptian Fast Service</header>
+<header><h1>🇪🇬 Egyptian <span>Fast Service</span></h1><p>أسرع خدمة في مصر كلها - مجاني بالكامل لحين إشعار آخر</p></header>
 <div class="container">
 
-<div class="card" id="splash" onclick="show('home')">
-<div style="display:flex;gap:0">
-<img style="width:50%;height:280px;object-fit:cover" src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=800&q=80" alt="عاملة منزلية">
-<img style="width:50%;height:280px;object-fit:cover" src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=900&q=80" alt="فني">
+<!-- LANDING -->
+<div id="page-landing">
+<div class="card" style="text-align:center">
+<img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=800" style="width:100%;border-radius:14px">
+<h2>كل خدمات البيت في مكان واحد</h2>
+<p class="small">سباكة - كهرباء - نجارة - نظافة - مساج - حجامة - وأكتر من 20 خدمة في محافظتك</p>
+<button onclick="show('page-auth')">ابدأ الآن - سجل دخول</button>
+<button class="secondary" onclick="show('page-terms')">📜 شروط الاستخدام</button>
+<p class="small">التطبيق مجرد وسيط فقط - غير مسؤول عن أي تعاملات خارجية ولا قطع الغيار</p>
 </div>
-<div style="display:flex;gap:8px;padding:10px;text-align:center;font-weight:800">
-<div style="flex:1">🏠 عاملة منزلية</div>
-<div style="flex:1">🔧 فني محترف</div>
+<div class="card"><h3>ليه تختارنا؟</h3><p>✅ فنيين قريبين من منطقتك فقط<br>✅ أسعار من أكتر من فني وتختار المناسب<br>✅ دفع كاش بعد الانتهاء<br>✅ تقييم للفني والعميل<br>✅ شات آمن داخل التطبيق</p></div>
 </div>
-<div class="splash-text">
-<h1>🇪🇬 أهلا بيك في Egyptian Fast Service</h1>
-<p>خدمتك أسرع معانا</p>
-<p>عندك عطل؟ أو محتاج عاملة منزلية؟<br>عندنا اللي يخلصهولك بسرعة.<br>دوس على الصورة عشان تدخل.</p>
-<div class="tap">اضغط هنا للدخول 👆</div>
+
+<!-- TERMS -->
+<div id="page-terms" class="hidden">
+<div class="card"><h3>📜 التعليمات والشروط</h3><div class="terms">
+<b>1- التطبيق مجرد وسيط فقط</b> بين العميل والفني.<br>
+<b>2- التطبيق غير مسؤول</b> عن أي تعاملات خارج التطبيق.<br>
+<b>3- التطبيق غير مسؤول</b> عن قطع الغيار، الاتفاق عليها بين العميل والفني.<br>
+<b>4- التطبيق حاليا مجاني بالكامل</b> لحين إشعار آخر.<br>
+<b>5- الدفع كاش</b> بعد انتهاء الخدمة والتأكد منها.<br>
+<b>6- ممنوع تبادل أرقام تليفونات</b> قبل الاتفاق داخل التطبيق.<br>
+<b>7- الفني ملزم بالسعر</b> اللي عرضه، ممنوع يغيره بعد اختيار العميل.<br>
+<b>8- العميل لازم يوصف المشكلة صح</b> عشان السعر يبقى مظبوط.<br>
+<b>9- اللي يلغي طلبين يتحظر</b> ولازم يبعت توضيح للإدارة، والإدارة تقبل أو ترفض.<br>
+<b>10- الطلب لازم يتقفل من الطرفين</b> مع التقييم، ومفيش طلب جديد قبل قفل القديم.<br>
+<b>11- الجيميل لا يظهر في أي رسالة.</b>
+</div>
+<button onclick="show('page-auth')">موافق - سجل الآن</button>
+<button class="secondary" onclick="show('page-landing')">رجوع</button></div>
+</div>
+
+<!-- AUTH -->
+<div id="page-auth" class="hidden">
+<div class="card"><h3>التسجيل / الدخول</h3>
+<p class="small">مفيش دخول للخدمات من غير تسجيل + رسالة تأكيد</p>
+<select id="regType"><option value="client">أنا عميل</option><option value="worker">أنا فني / عامل</option></select>
+<input id="regName" placeholder="الاسم بالكامل">
+<input id="regPhone" placeholder="رقم التليفون">
+<select id="regGov"><option>الشرقية</option><option>القاهرة</option><option>الجيزة</option><option>الإسكندرية</option><option>الدقهلية</option><option>الغربية</option><option>المنوفية</option><option>القليوبية</option><option>البحيرة</option><option>دمياط</option><option>بورسعيد</option><option>الإسماعيلية</option><option>السويس</option><option>الفيوم</option><option>بني سويف</option><option>المنيا</option><option>أسيوط</option><option>سوهاج</option><option>قنا</option><option>الأقصر</option><option>أسوان</option><option>البحر الأحمر</option><option>مطروح</option><option>شمال سيناء</option><option>جنوب سيناء</option><option>الوادي الجديد</option><option>كفر الشيخ</option></select>
+<input id="regCity" placeholder="البلد / المركز - مثال: فاقوس">
+<textarea id="regAddr" placeholder="العنوان بالتفصيل - شارع - عمارة - دور - شقة"></textarea>
+<div id="workerExtra" class="hidden">
+<select id="regJob"><option>سباكة</option><option>كهرباء</option><option>نجارة</option><option>نقاشة ودهانات</option><option>تكييف وتبريد</option><option>صيانة أجهزة منزلية</option><option>حدادة ولحام</option><option>ألوميتال وزجاج</option><option>سيراميك ورخام</option><option>دش وستالايت وكاميرات</option><option>نقل وعفش</option><option>عاملات نظافة للمنازل</option><option>مدرب مساج - رجال</option><option>مدربة مساج - سيدات</option><option>حجامة - رجال</option><option>حجامة - سيدات</option><option>كوافير رجالي - متنقل</option><option>كوافيرة حريمي - متنقلة</option><option>صيانة موبايل وكمبيوتر</option><option>ميكانيكي متنقل</option></select>
+<input type="file" id="regIdFront"><span class="small">صورة البطاقة وش</span>
+<input type="file" id="regIdBack"><span class="small">صورة البطاقة ظهر</span>
+<input type="file" id="regPhoto"><span class="small">صورة شخصية</span>
+</div>
+<button onclick="register()">تأكيد التسجيل - هيجيلك رسالة تأكيد</button>
+<p class="small" id="regMsg"></p>
 </div>
 </div>
 
-<div class="card hide" id="home">
-<h2>اختار انت مين؟</h2>
-<p>اطلب خدمة، أو سجل كعامل واشتغل معانا.</p>
-<button onclick="show('terms')">اطلب خدمة - عميل</button>
-<button class="sec" onclick="show('worker1')">سجل كعامل / عاملة</button>
-<button class="sec" onclick="show('adminLogin')">دخول الأدمن</button>
-<button class="sec" onclick="show('splash')">رجوع للبداية</button>
+<!-- HOME / SERVICES -->
+<div id="page-home" class="hidden">
+<div class="card"><div class="profile"><img src="https://i.pravatar.cc/150?img=12"><div><b id="userNameShow">أبو سلمى</b><br><div class="stars">⭐ 4.8 (120 تقييم)</div><span class="badge" id="userTypeShow">عميل - فاقوس - الشرقية</span></div></div></div>
+<div class="card"><h3>اطلب خدمة - اختار من منطقتك</h3><p class="small">هيظهرلك فنيين محافظتك وبلدك بس، مش كل مصر</p>
+<div class="grid" id="servicesGrid"></div></div>
+<div class="card"><h3>طلباتي</h3><div id="myOrders"></div><button class="secondary" onclick="show('page-admin')">لوحة الإدارة - الطلبات والأسعار</button></div>
 </div>
 
-<div class="card hide" id="terms">
-<h2>الشروط والأحكام</h2><p>بالضغط على موافق، انت توافق ان الخدمة بالاتفاق بين العميل والعامل، والتطبيق وسيط فقط.</p>
-<button onclick="show('client1')">موافق - ابدأ</button>
-<button class="sec" onclick="show('home')">رجوع</button>
+<!-- ORDER -->
+<div id="page-order" class="hidden">
+<div class="card"><h3 id="orderTitle">طلب جديد</h3>
+<textarea id="orderDesc" placeholder="اشرح المشكلة بالتفصيل..."></textarea>
+<input id="orderPhone" placeholder="تليفون للتواصل داخل التطبيق">
+<button onclick="createOrder()">ابعت الطلب - هيروح لفنيين منطقتك بس</button>
+<div id="offersArea"></div>
+<button class="secondary" onclick="show('page-home')">رجوع</button></div>
 </div>
 
-<div class="card hide" id="client1">
-<h2>اطلب خدمة - 1/3</h2>
-<label>نوع الخدمة</label><select id="cService"><option>سباكة</option><option>كهرباء</option><option>نجارة</option><option>نقاشة</option><option>تكييف</option><option>عاملة منزلية</option><option>نظافة</option><option>بيبي سيتر</option></select>
-<label>المدينة</label><input id="cCity" placeholder="مثال: فاقوس">
-<button onclick="show('client2')">التالي - مجاني</button>
-<button class="sec" onclick="show('home')">رجوع</button>
+<!-- CHAT -->
+<div id="page-chat" class="hidden">
+<div class="card"><h3>💬 شات مع الفني المختار</h3><p class="small">التواصل جوه التطبيق فقط - ممنوع أرقام خارجية</p>
+<div class="chatbox" id="chatBox"><div class="msg">أهلا بيك، أنا الفني أحمد، السعر 250 ج، أجي امتى؟</div></div>
+<input id="chatInput" placeholder="اكتب رسالتك...">
+<button onclick="sendMsg()">إرسال</button>
+<hr>
+<button class="green" onclick="closeOrder('me')">✅ أنا خلصت - اقفل الطلب من عندي</button>
+<button onclick="show('page-rate')">⭐ قيم الطرف التاني</button>
+<button class="danger" onclick="cancelOrder()">❌ إلغاء الطلب (ليك مرتين بس - التالتة حظر)</button>
+<p class="small" id="closeStatus">حالة القفل: العميل: لسه - الفني: لسه - لازم الاتنين يقفلوا عشان تفتح طلب جديد</p>
+</div>
 </div>
 
-<div class="card hide" id="client2">
-<h2>اطلب خدمة - 2/3</h2>
-<label>وصف المشكلة</label><textarea id="cDesc" rows="3" placeholder="اشرح المشكلة"></textarea>
-<button onclick="show('client3')">التالي - مجاني</button>
-<button class="sec" onclick="show('client1')">رجوع</button>
+<!-- RATE -->
+<div id="page-rate" class="hidden">
+<div class="card"><h3>⭐ التقييم</h3><p>قيم اللي اتعاملت معاه، التقييم هيظهر تحت صورته في صفحته</p>
+<select id="rateStars"><option>⭐⭐⭐⭐⭐ - ممتاز</option><option>⭐⭐⭐⭐ - جيد جدا</option><option>⭐⭐⭐ - جيد</option><option>⭐⭐ - مقبول</option><option>⭐ - سيئ</option></select>
+<textarea placeholder="اكتب تعليقك..."></textarea>
+<button onclick="alert('تم حفظ التقييم - شكرا ليك');show('page-home')">حفظ التقييم وقفل الطلب</button></div>
 </div>
 
-<div class="card hide" id="client3">
-<h2>اطلب خدمة - 3/3</h2>
-<label>اسمك</label><input id="cName" placeholder="اسمك">
-<label>رقم الموبايل</label><input id="cPhone" placeholder="01xxxxxxxxx">
-<button onclick="submitClient()">ارسال الطلب</button>
-<button class="sec" onclick="show('client2')">رجوع</button>
+<!-- ADMIN / BLOCK -->
+<div id="page-admin" class="hidden">
+<div class="card"><h3>🛠 لوحة الإدارة</h3><p class="small">الأدمن بيشوف الطلبات والأسعار بس، مش المحادثات</p>
+<div id="adminOrders"><p>طلب 1: سباكة - فاقوس - 250 ج - حالة: مفتوح</p><p>طلب 2: كهرباء - فاقوس - 300 ج - حالة: تم القفل من الطرفين</p></div>
+<h3>طلبات فك الحظر</h3>
+<textarea id="appealText" placeholder="اكتب سبب إلغاء الطلبين..."></textarea>
+<button onclick="alert('تم إرسال توضيحك للإدارة، استنى رد الإدارة بالقبول أو الرفض')">ابعت توضيح للإدارة لفك الحظر</button>
+<button onclick="alert('تم قبولك - رجعت تاني')">✅ الإدارة: قبول (تجريبي)</button>
+<button class="danger" onclick="alert('تم رفضك - هتفضل محظور')">❌ الإدارة: رفض (تجريبي)</button>
+<button class="secondary" onclick="show('page-home')">رجوع</button></div>
 </div>
 
-<div class="card hide" id="worker1">
-<h2>سجل كعامل / عاملة</h2>
-<label>اسمك</label><input id="wName" placeholder="اسمك بالكامل">
-<label>رقم الموبايل</label><input id="wPhone" placeholder="01xxxxxxxxx">
-<label>المهنة</label><select id="wJob"><option>سباك</option><option>كهربائي</option><option>نجار</option><option>نقاش</option><option>فني تكييف</option><option>عاملة منزلية</option><option>بيبي سيتر</option><option>عامل نظافة</option></select>
-<label>المدينة</label><input id="wCity" placeholder="مثال: فاقوس">
-<button onclick="submitWorker()">ارسال للمراجعة</button>
-<button class="sec" onclick="show('home')">رجوع</button>
 </div>
-
-<div class="card hide" id="adminLogin">
-<h2>دخول الأدمن</h2><label>كلمة السر</label><input id="adminPass" type="password" placeholder="جرب 1234">
-<button onclick="loginAdmin()">دخول</button>
-<button class="sec" onclick="show('home')">رجوع</button>
-</div>
-
-<div class="card hide" id="adminDash">
-<h2>لوحة الأدمن</h2><h3>طلبات العملاء</h3><div id="clientList"></div><h3>طلبات العمال</h3><div id="workerList"></div>
-<button class="sec" onclick="show('home')">خروج</button>
-</div>
-
-<div class="card hide" id="success">
-<h2>تم بنجاح ✅</h2><p id="successText">تم ارسال طلبك.</p>
-<button onclick="show('home')">رجوع للرئيسية</button>
-</div>
-
+<div class="nav">
+<button class="active" onclick="show('page-landing')">🏠 الرئيسية</button>
+<button onclick="show('page-home')">🛠 الخدمات</button>
+<button onclick="show('page-chat')">💬 شات</button>
+<button onclick="show('page-admin')">🛠 إدارة</button>
 </div>
 <script>
-function showMsg(m){let d=document.createElement('div');d.textContent=m;d.style.cssText='position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#111827;color:#fff;padding:12px 18px;border-radius:12px;z-index:9999';document.body.appendChild(d);setTimeout(()=>d.remove(),2500);}
-function show(id){document.querySelectorAll('.card').forEach(c=>c.classList.add('hide'));document.getElementById(id).classList.remove('hide');window.scrollTo(0,0)}
-function get(k){try{return JSON.parse(localStorage.getItem(k)||'[]')}catch(e){return[]}}
-function save(k,v){localStorage.setItem(k,JSON.stringify(v))}
-function submitClient(){
-var o={service:document.getElementById('cService').value,city:document.getElementById('cCity').value,desc:document.getElementById('cDesc').value,name:document.getElementById('cName').value,phone:document.getElementById('cPhone').value,time:new Date().toLocaleString('ar-EG')};
-if(!o.city||!o.name||!o.phone){showMsg('كمل البيانات الأول');return}
-var a=get('clients');a.push(o);save('clients',a);
-document.getElementById('successText').textContent='تم ارسال طلبك بنجاح، هنوصلك بأقرب عامل.';show('success');
+const services=[
+["🔧","سباكة"],["⚡","كهرباء"],["🪚","نجارة"],["🎨","نقاشة ودهانات"],["❄️","تكييف وتبريد"],["🏠","صيانة أجهزة منزلية"],["🔨","حدادة ولحام"],["🪟","ألوميتال وزجاج"],["🧱","سيراميك ورخام"],["📡","دش وستالايت وكاميرات"],["🚚","نقل وعفش"],["🧹","عاملات نظافة للمنازل"],["💆‍♂️","مدرب مساج - رجال"],["💆‍♀️","مدربة مساج - سيدات"],["🩸","حجامة - رجال"],["🩸","حجامة - سيدات"],["💈","كوافير رجالي - متنقل"],["💇‍♀️","كوافيرة حريمي - متنقلة"],["📱","صيانة موبايل وكمبيوتر"],["🚗","ميكانيكي متنقل"]];
+let currentService="", cancelCount=0, myClosed=false;
+function show(id){document.querySelectorAll('.container > div').forEach(d=>d.classList.add('hidden'));document.getElementById(id).classList.remove('hidden');window.scrollTo(0,0)}
+document.getElementById('regType').onchange=e=>{document.getElementById('workerExtra').classList.toggle('hidden',e.target.value!=='worker')}
+function register(){
+  let name=document.getElementById('regName').value;
+  if(!name){alert('اكتب اسمك');return}
+  document.getElementById('userNameShow').innerText=name;
+  document.getElementById('userTypeShow').innerText=(document.getElementById('regType').value==='worker'?'فني - ':'عميل - ')+document.getElementById('regCity').value+' - '+document.getElementById('regGov').value;
+  document.getElementById('regMsg').innerText='✅ تم إرسال رسالة تأكيد - تم التسجيل بنجاح';
+  setTimeout(()=>show('page-home'),800);
 }
-function submitWorker(){
-var o={name:document.getElementById('wName').value,phone:document.getElementById('wPhone').value,job:document.getElementById('wJob').value,city:document.getElementById('wCity').value,time:new Date().toLocaleString('ar-EG')};
-if(!o.name||!o.phone||!o.city){showMsg('كمل البيانات الأول');return}
-var a=get('workers');a.push(o);save('workers',a);
-document.getElementById('successText').textContent='تم ارسال طلبك للمراجعة، هنكلمك قريب.';show('success');
+let grid=document.getElementById('servicesGrid');
+services.forEach(s=>{let d=document.createElement('div');d.className='service';d.innerHTML=`<span>${s[0]}</span><b>${s[1]}</b>`;d.onclick=()=>{currentService=s[1];document.getElementById('orderTitle').innerText='طلب: '+s[1]+' - في منطقتك فقط';show('page-order')};grid.appendChild(d)})
+function createOrder(){
+  if(myClosed===false && document.getElementById('myOrders').innerHTML.includes('مفتوح')){alert('⚠️ عندك طلب قديم مفتوح - لازم تقفله وتقيم الأول عشان تفتح طلب جديد');return}
+  document.getElementById('offersArea').innerHTML=`<hr><h3>عروض الفنيين في منطقتك فقط (${document.getElementById('regCity').value||'فاقوس'})</h3>
+  <div class="card"><div class="profile"><img src="https://i.pravatar.cc/150?img=13"><div><b>أحمد السباك</b><br><div class="stars">⭐ 4.9</div></div></div><p>السعر: <b>250 ج</b> - فاقوس - الشرقية</p><button onclick="show('page-chat')">اختار الفني ده وادخل شات</button></div>
+  <div class="card"><div class="profile"><img src="https://i.pravatar.cc/150?img=32"><div><b>محمد السباك</b><br><div class="stars">⭐ 4.7</div></div></div><p>السعر: <b>300 ج</b> - فاقوس - الشرقية</p><button class="secondary" onclick="show('page-chat')">اختار الفني ده</button></div>`;
+  document.getElementById('myOrders').innerHTML=`<p>طلب: ${currentService} - فاقوس - حالة: <b>مفتوح</b> - مستني اختيار فني</p>`;
+  alert('✅ الطلب اتبعت لفنيين منطقتك بس');
 }
-else{showMsg('كلمة السر غلط')}
-function renderAdmin(){
-var c=get('clients'),w=get('workers');
-document.getElementById('clientList').innerHTML=c.length?c.map((x,i)=>'<div class="item"><b>'+x.service+'</b> <span class="badge">'+x.city+'</span><div>'+x.name+' - '+x.phone+'</div><div class="small">'+x.desc+' | '+x.time+'</div><button class="danger" onclick="delClient('+i+')">حذف</button></div>').join(''):'<p class="small">مفيش طلبات لسه</p>';
-document.getElementById('workerList').innerHTML=w.length?w.map((x,i)=>'<div class="item"><b>'+x.name+'</b> <span class="badge">'+x.job+'</span><div>'+x.phone+' - '+x.city+'</div><div class="small">'+x.time+'</div><button class="danger" onclick="delWorker('+i+')">حذف</button></div>').join(''):'<p class="small">مفيش عمال لسه</p>';
+function sendMsg(){let v=document.getElementById('chatInput').value;if(!v)return;let d=document.createElement('div');d.className='msg me';d.innerText=v;document.getElementById('chatBox').appendChild(d);document.getElementById('chatInput').value=''}
+function closeOrder(who){myClosed=true;document.getElementById('closeStatus').innerText='حالة القفل: العميل: قفل ✅ - الفني: لسه - لازم الفني يقفل كمان';alert('تم قفلك من عندك - مستني الطرف التاني يقفل ويقيم')}
+function cancelOrder(){
+  cancelCount++;
+  if(cancelCount>=2){alert('⛔ لغيت طلبين - حسابك اتحظر - ابعت توضيح للإدارة عشان تقبل أو ترفض');show('page-admin');return}
+  alert('تم إلغاء الطلب - فاضلك إلغاء واحد بس، التاني حظر');
 }
-function delClient(i){var a=get('clients');a.splice(i,1);save('clients',a);renderAdmin()}
-function delWorker(i){var a=get('workers');a.splice(i,1);save('workers',a);renderAdmin()}
 </script>
 </body>
 </html>
